@@ -14,7 +14,7 @@ import type { BusinessRecord } from "@/api/types";
 
 // import { ref } from 'vue'
 // const title = ref('Hell222o')
-const title = ref('Hell222o')
+const title = ref('mememe')
 // console.log(import.meta.env.VITE_APP_BASE_URL)
 // getPzhiye('1').then((res) => {
 //   console.log(res);
