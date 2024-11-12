@@ -1,6 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
+    "module": "esnext",  // 支持 import.meta
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {

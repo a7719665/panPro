@@ -1,4 +1,10 @@
 {
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+		  "^wd-(.*)": "wot-design-uni/components/wd-$1/wd-$1.vue"
+		}
+	  },
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
@@ -8,9 +14,28 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+        "navigationBarTextStyle": "white",
+        "navigationBarTitleText": "嘛嘛嘛",
+        "navigationBarBackgroundColor": "#77a5fc",
+        "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#7a7e83",
+        "selectedColor": "#2979FF",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "行业",
+                "iconPath": "static/tab/hangye.png",
+                "selectedIconPath": "static/tab/hangyeGL.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "产业",
+                "iconPath": "static/tab/chanye.png",
+                "selectedIconPath": "static/tab/chanyeGL.png"
+            }
+        ]
+    }
 }

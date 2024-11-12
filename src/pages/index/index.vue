@@ -8,8 +8,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
+import type { BusinessRecord } from "@/api/types";
+import { getPzhiye } from '@/api';
+
+// import { ref } from 'vue'
+// const title = ref('Hell222o')
 const title = ref('Hell222o')
+console.log(import.meta.env.VITE_APP_BASE_URL)
+getPzhiye('1').then((res) => {
+  console.log(res);
+});
 </script>
 
 <style lang="scss" scoped>
