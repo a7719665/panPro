@@ -2,7 +2,7 @@
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
-      <text class="title">{{ title }}</text>
+      <text class="title text-red!">{{ title }}</text>
     </view>
   </view>
 </template>
@@ -12,18 +12,18 @@ import { ref } from 'vue'
 const title = ref('Hell222o')
 </script>
 
-<style>
+<style lang="scss" scoped>
 .content {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
 }
 
 .logo {
   height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
+  width: 100rpx;
+  // margin-top: 200rpx;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50rpx;
