@@ -17,29 +17,56 @@
                         <span style="background: none"></span>
                     </div>
                 </div>
+                <uv-form labelPosition="left" :model="info" :rules="rules" ref="form">
+                    <uv-form-item label="" :prop="info.mobile">
+                        <uv-input
+                            color="#000"
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="account"
+                            v-model="info.mobile"
+                            placeholder="请输入手机号"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <uv-form-item label="" prop="password">
+                        <uv-input
+                            color="#000"
+                            password
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="lock"
+                            v-model="info.password"
+                            placeholder="请输入密码"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <view class="flex justify-between items-center color-#666">
+                        <uv-checkbox-group v-model="checkboxValue" shape="circle">
+                            <uv-checkbox v-model="info.remember" :customStyle="{ marginBottom: '8px' }" name="记住密码" label="记住密码"></uv-checkbox>
+                        </uv-checkbox-group>
+                        <span class="forget_password">忘记密码？</span>
+                    </view>
+                    <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
+                    <div class="login_btn">登录</div>
+                </uv-form>
             </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            phone: '',
-            password: '',
-            rememberMe: false
-        };
-    },
-    methods: {
-        handleLogin() {
-            // 处理登录逻辑
-            console.log('手机号:', this.phone);
-            console.log('密码:', this.password);
-            console.log('记住密码:', this.rememberMe);
-        }
-    }
-};
+<script setup lang="ts">
+import { ref } from 'vue';
+const info = ref({
+    mobile: '',
+    password: '',
+    remember: false
+});
+const checkboxValue = ref(['记住密码']);
 </script>
 
 <style scoped lang="scss">
@@ -76,13 +103,14 @@ export default {
     bottom: 0;
     // margin: 300rpx 0 100rpx;
     height: 686rpx;
+    padding: 40rpx;
 }
 .zk {
     display: flex;
     align-items: center;
     width: 60%;
-    margin-top: 40rpx;
-    margin-left: 60rpx;
+    margin-top: 10rpx;
+    margin-left: 10rpx;
     gap: 100rpx;
     .login_title {
         color: #fff;
@@ -103,5 +131,20 @@ export default {
         font-size: 36rpx;
         font-weight: 700;
     }
+    .forget_password {
+        font-size: 28rpx;
+        color: #666;
+    }
+}
+.login_btn {
+    width: 90%;
+    text-align: center;
+    background: radial-gradient(75.86% 100%, #7582fc 0, #f355ff 100%);
+    border-radius: 60rpx;
+    font-size: 40rpx;
+    color: #fff;
+    line-height: 108rpx;
+    height: 108rpx;
+    margin: 40rpx auto auto;
 }
 </style>
