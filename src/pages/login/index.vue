@@ -6,11 +6,11 @@
                 <p>鸿运</p>
             </div>
 
-            <div class="botpanel">
+            <div class="botpanel" v-if="isLogin">
                 <div class="zk">
                     <div>
                         <p class="login_title">登录</p>
-                        <span></span>
+                        <span class="login_span"></span>
                     </div>
                     <div>
                         <p class="register_title">注册</p>
@@ -45,14 +45,100 @@
                         >
                         </uv-input>
                     </uv-form-item>
-                    <view class="flex justify-between items-center color-#666">
+                    <view class="flex justify-between color-#666">
                         <uv-checkbox-group v-model="checkboxValue" shape="circle">
-                            <uv-checkbox v-model="info.remember" :customStyle="{ marginBottom: '8px' }" name="记住密码" label="记住密码"></uv-checkbox>
+                            <uv-checkbox v-model="info.remember" :customStyle="{ marginBottom: '8px' }" name="记住密码">记住密码</uv-checkbox>
                         </uv-checkbox-group>
                         <span class="forget_password">忘记密码？</span>
                     </view>
                     <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
                     <div class="login_btn">登录</div>
+                </uv-form>
+            </div>
+            <div class="botpanel_register" v-else>
+                <div class="zk">
+                    <div>
+                        <p class="register_title">登录</p>
+                        <span style="background: none"></span>
+                    </div>
+                    <div>
+                        <p class="login_title">注册</p>
+                        <span class="login_span"></span>
+                    </div>
+                </div>
+                <uv-form labelPosition="left" :model="info" :rules="rules" ref="form">
+                    <uv-form-item label="" :prop="info.mobile">
+                        <uv-input
+                            color="#000"
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="account"
+                            v-model="info.mobile"
+                            placeholder="请输入手机号"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <uv-form-item label="" prop="password">
+                        <uv-input
+                            color="#000"
+                            password
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="lock"
+                            v-model="info.password"
+                            placeholder="请输入图形码"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <uv-form-item label="" prop="password">
+                        <uv-input
+                            color="#000"
+                            password
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="lock"
+                            v-model="info.password"
+                            placeholder="请输入登录密码"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <uv-form-item label="" prop="password">
+                        <uv-input
+                            color="#000"
+                            password
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="lock"
+                            v-model="info.password"
+                            placeholder="请确认登录密码"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                    <uv-form-item label="" prop="password">
+                        <uv-input
+                            color="#000"
+                            password
+                            shape="circle"
+                            :customStyle="{
+                                backgroundColor: '#f0f0f0' // 自定义背景色
+                            }"
+                            prefixIcon="lock"
+                            v-model="info.password"
+                            placeholder="请输入邀请码"
+                        >
+                        </uv-input>
+                    </uv-form-item>
+                   
+                    <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
+                    <div class="login_btn">注册</div>
                 </uv-form>
             </div>
         </div>
@@ -67,6 +153,8 @@ const info = ref({
     remember: false
 });
 const checkboxValue = ref(['记住密码']);
+//显示登录还是显示注册
+const isLogin = ref(false);
 </script>
 
 <style scoped lang="scss">
@@ -112,29 +200,29 @@ const checkboxValue = ref(['记住密码']);
     margin-top: 10rpx;
     margin-left: 10rpx;
     gap: 100rpx;
-    .login_title {
-        color: #fff;
-        font-size: 48rpx;
-        font-weight: 700;
-    }
-    span {
-        display: inline-block;
-        background: #7948ea;
-        width: 60rpx;
-        height: 14rpx;
-        margin-left: 8rpx;
-        border-radius: 6rpx;
-    }
+}
+.login_title {
+    color: #fff;
+    font-size: 48rpx;
+    font-weight: 700;
+}
+.login_span {
+    display: inline-block;
+    background: #7948ea;
+    width: 60rpx;
+    height: 14rpx;
+    margin-left: 8rpx;
+    border-radius: 6rpx;
+}
 
-    .register_title {
-        color: #fff;
-        font-size: 36rpx;
-        font-weight: 700;
-    }
-    .forget_password {
-        font-size: 28rpx;
-        color: #666;
-    }
+.register_title {
+    color: #fff;
+    font-size: 36rpx;
+    font-weight: 700;
+}
+.forget_password {
+    font-size: 28rpx;
+    color: #666;
 }
 .login_btn {
     width: 90%;
@@ -146,5 +234,17 @@ const checkboxValue = ref(['记住密码']);
     line-height: 108rpx;
     height: 108rpx;
     margin: 40rpx auto auto;
+}
+
+.botpanel_register {
+    border-radius: 60rpx 60rpx 0 0;
+    background: hsla(0, 0%, 100%, 0.02);
+    box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.25);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    // margin: 300rpx 0 100rpx;
+    height: 950rpx;
+    padding: 40rpx;
 }
 </style>
