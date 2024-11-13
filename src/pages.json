@@ -13,6 +13,12 @@
             }
         },
         {
+            "path": "pages/great/index",
+            "style": {
+                "navigationBarTitleText": ""
+            }
+        },
+        {
             "path": "pages/login/index",
             "style": {
                 "navigationBarTitleText": "登录",

@@ -22,7 +22,6 @@
             </div>
             <div class="pde pl-40rpx pr-40rpx">
                 <!-- <input type="number" placeholder="请输入金额" class="enterMoney" /> -->
-                <wd-input class="bg-transparent!"   v-model="score" placeholder="请输入金额"> </wd-input>
 
                 <div class="led_warp">
                     <div class="led"><p style="background: none" @click="outClick">转出</p></div>
@@ -34,17 +33,14 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useToast } from 'wot-design-uni';
 const score = ref(0);
-const toast = useToast()
 
 const outClick = () => {
     console.log('转出');
-    toast.show('转出')
-    // uni.showToast({
-    //     title: '转出',
-    //     icon: 'none'
-    // })
+    uni.showToast({
+        title: '转出',
+        icon: 'none'
+    })
 };
 const inClick = () => {
     console.log('转入');
