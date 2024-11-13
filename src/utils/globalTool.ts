@@ -14,7 +14,7 @@ export default {
             }
         });
     },
-    showToast: function (title: string, back: Function | boolean, _icon: any) {
+    showToast: function (title: string, back: Function | boolean = false, _icon: any = 'none') {
         if (_icon) {
             uni.showToast({
                 title: title,
@@ -124,5 +124,12 @@ export default {
         let numArr = ['一', '二', '三', '四', '五', '六', '七', '八', '九'];
 
         return numArr[num];
+    },
+    setStore: function (name: string, content: any) {
+        if (!name) return;
+        if (typeof content !== 'string') {
+            content = JSON.stringify(content);
+        }
+        uni.setStorageSync(name, content);
     }
 };

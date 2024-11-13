@@ -13,12 +13,12 @@
                         <span class="login_span"></span>
                     </div>
                     <div @click="isLogin = false">
-                        <p class="register_title  mb-40rpx">注册</p>
+                        <p class="register_title mb-40rpx">注册</p>
                         <span style="background: none"></span>
                     </div>
                 </div>
                 <uv-form labelPosition="left" :model="info" :rules="rules" ref="form">
-                    <uv-form-item label="" :prop="info.mobile">
+                    <uv-form-item label="" :prop="usename">
                         <uv-input
                             color="#000"
                             shape="circle"
@@ -26,12 +26,12 @@
                                 backgroundColor: '#f0f0f0' // 自定义背景色
                             }"
                             prefixIcon="account"
-                            v-model="info.mobile"
+                            v-model="info.usename"
                             placeholder="请输入手机号"
                         >
                         </uv-input>
                     </uv-form-item>
-                    <uv-form-item label="" prop="password">
+                    <uv-form-item label="" prop="usepwd">
                         <uv-input
                             color="#000"
                             password
@@ -40,19 +40,19 @@
                                 backgroundColor: '#f0f0f0' // 自定义背景色
                             }"
                             prefixIcon="lock"
-                            v-model="info.password"
+                            v-model="info.usepwd"
                             placeholder="请输入密码"
                         >
                         </uv-input>
                     </uv-form-item>
                     <view class="flex justify-between color-#666">
                         <uv-checkbox-group v-model="checkboxValue" shape="circle">
-                            <uv-checkbox v-model="info.remember" :customStyle="{ marginBottom: '8px' }" name="记住密码">记住密码</uv-checkbox>
+                            <uv-checkbox v-model="check" :customStyle="{ marginBottom: '8px' }" name="记住密码">记住密码</uv-checkbox>
                         </uv-checkbox-group>
                         <span class="forget_password" @click="toForgetPassword">忘记密码？</span>
                     </view>
                     <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
-                    <div class="login_btn">登录</div>
+                    <div class="login_btn" @click="loginClick">登录</div>
                 </uv-form>
             </div>
             <div class="botpanel_register" v-else>
@@ -136,7 +136,7 @@
                         >
                         </uv-input>
                     </uv-form-item>
-                   
+
                     <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
                     <div class="login_btn">注册</div>
                 </uv-form>
@@ -146,20 +146,42 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { login,register } from '@/api';
+import globalTool from '@/utils/globalTool';
 const info = ref({
-    mobile: '',
-    password: '',
-    remember: false
+    usename: '13666997777',
+    usepwd: 'aa123456'
 });
+const check = ref(false);
 const checkboxValue = ref(['记住密码']);
 //显示登录还是显示注册
-const isLogin = ref(false);
+const isLogin = ref(true);
 const toForgetPassword = () => {
     uni.navigateTo({
         url: '/pages/login/ForgetPassword'
     });
 };
+const loginClick = () => {
+    register();
+    return;
+    login(info.value).then((res: any) => {
+        console.log(res);
+        var res = res.data;
+        if (res.result == 'true') {
+            globalTool.setStore('token', res.token);
+            if (!!check.value) {
+                globalTool.setStore('username', info.value.usename);
+                globalTool.setStore('password', info.value.usepwd);
+            }
+            globalTool.setStore('check', check.value);
+            globalTool.showToast('登录成功');
+            uni.switchTab({
+                url: '/pages/home/index'
+            });
+        }
+    });
+};
+
 </script>
 
 <style scoped lang="scss">

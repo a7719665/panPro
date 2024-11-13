@@ -28,5 +28,15 @@ export default defineConfig(async () => {
         },
       ],
     },
+    server: {
+      proxy: {
+        '/agent': {
+          // target: 'https://my201hongy.zvrxw.com', // 目标服务器
+          target: 'http://119.29.73.81:8888', // 目标服务器
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/agent/, '') // 可选：重写路径
+        }
+      }
+    }
   }
 })

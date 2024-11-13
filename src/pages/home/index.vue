@@ -6,7 +6,7 @@
         </view>
         <div class="top_content">
             <div class="con_list">
-                <div>
+                <div @click="toGreat">
                     <img src="@/static/img/licai.png" alt="" />
                     <p>余额宝</p>
                 </div>
@@ -52,7 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+const toGreat = () => {
+    uni.navigateTo({
+        url: '/pages/great/index'
+    });
+};
 const text = ref('鸿运平台温馨提醒各位代还员：近年来通过市场调研发现有平台存在恶意模仿、复制鸿运平台机制等不法行为，通过高额返现、高利回报、伪造鸿运平台证明等行为导致代还员直接造成经济财产损失。因此鸿运平台温馨提醒各位代还！平台所有代还员如遇上述情况也可随时提交受骗资料证据向小助理举报，一经查证平台法务部门将依法惩处此类不法行为！');
 
 const list = ref(['https://cdn.uviewui.com/uview/swiper/swiper1.png', 'https://cdn.uviewui.com/uview/swiper/swiper2.png', 'https://cdn.uviewui.com/uview/swiper/swiper3.png']);

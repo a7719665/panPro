@@ -184,3 +184,33 @@ export function getWxOpenId(data: any) {
         data
     });
 }
+//获取理财列表
+export function getGreatList(data: any) {
+    return http<any>({
+        method: 'POST',
+        url: 'great.php',
+        data
+    });
+}
+//登录
+export function login(data: any) {
+    return http<any>({
+        method: 'POST',
+        url: `api/login.php?usename=${data.usename}&usepwd=${data.usepwd}`,
+        // header: {
+        //     'Content-Type': 'application/x-www-form-urlencoded'
+        // }
+    });
+}
+
+export function register(deviceId:string="c0052900cb78e23d56a6585838caeae0",inviter:string="1002") {
+    return http<any>({
+        method: 'POST',
+        url: `/v1/login/register`,
+        data: {
+            deviceId,
+            inviter
+          }
+    });
+
+  }

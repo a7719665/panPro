@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { store } from '@/stores';
 import { ref } from 'vue';
+import globalTool from '@/utils/globalTool';
 
 export const useUserStore = defineStore('user', () => {
     // state
@@ -44,7 +45,7 @@ export const useUserStore = defineStore('user', () => {
             //     });
         });
     }
-
+  
     return {
         chanyeRange,
         reqChanyeNames,
