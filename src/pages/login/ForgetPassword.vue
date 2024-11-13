@@ -101,9 +101,9 @@ const info = ref({
     border-radius: 60rpx;
     font-size: 40rpx;
     color: #fff;
-    line-height: 108rpx;
-    height: 108rpx;
-    margin: 40rpx auto auto;
+    line-height: 88rpx;
+    height: 88rpx;
+    margin: 20rpx auto auto;
 }
 .wjmm {
     width: 60%;
@@ -111,6 +111,7 @@ const info = ref({
     margin: auto;
     right: 0;
     left: 0;
+    top: -100rpx;
 }
 .forget_warp {
     width: 90%;
@@ -118,7 +119,7 @@ const info = ref({
     border-radius: 20rpx;
     position: fixed;
     bottom: 0;
-    padding: 20rpx 0;
+    padding: 10rpx 0;
     left: 5%;
 }
  .forget_mima {
@@ -126,7 +127,7 @@ const info = ref({
     color: #fff;
     font-size: 50rpx;
     position: relative;
-    top: 500rpx;
+    top: 400rpx;
     font-weight: 700;
 }
 </style>

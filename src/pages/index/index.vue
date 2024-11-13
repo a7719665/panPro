@@ -1,9 +1,19 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png" />
-    <view class="text-area">
-      <text class="title text-red!">{{ title }}</text>
-    </view>
+    <view class="uni-margin-wrap">
+			<swiper class="swiper" circular  autoplay 
+				:duration="500">
+				<swiper-item>
+					<view class="swiper-item uni-bg-red">A</view>
+				</swiper-item>
+				<swiper-item>
+					<view class="swiper-item uni-bg-green">B</view>
+				</swiper-item>
+				<swiper-item>
+					<view class="swiper-item uni-bg-blue">C</view>
+				</swiper-item>
+			</swiper>
+		</view>
   </view>
 </template>
 

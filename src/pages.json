@@ -7,6 +7,12 @@
     },
     "pages": [
         {
+            "path": "pages/home/index",
+            "style": {
+                "navigationBarTitleText": "首页"
+            }
+        },
+        {
             "path": "pages/login/index",
             "style": {
                 "navigationBarTitleText": "登录",
@@ -39,21 +45,39 @@
         "backgroundColor": "#F8F8F8"
     },
     "tabBar": {
-        "color": "#7a7e83",
-        "selectedColor": "#2979FF",
-        "backgroundColor": "#ffffff",
+        "color": "#000",
+        "selectedColor": "#fff",
+        "backgroundColor": "#c5c5fc",
         "list": [
             {
-                "pagePath": "pages/index/index",
-                "text": "行业",
-                "iconPath": "static/tab/hangye.png",
-                "selectedIconPath": "static/tab/hangyeGL.png"
+                "pagePath": "pages/home/index",
+                "text": "首页",
+                "iconPath": "static/tab/homee.png",
+                "selectedIconPath": "static/tab/home5.png"
             },
             {
                 "pagePath": "pages/me/index",
-                "text": "产业",
-                "iconPath": "static/tab/chanye.png",
-                "selectedIconPath": "static/tab/chanyeGL.png"
+                "text": "客服",
+                "iconPath": "static/tab/homeb.png",
+                "selectedIconPath": "static/tab/home2.png"
+            },
+            {
+                "pagePath": "pages/me/index",
+                "text": "代还中心",
+                "iconPath": "static/tab/homec.png",
+                "selectedIconPath": "static/tab/home3.png"
+            },
+            {
+                "pagePath": "pages/me/index",
+                "text": "记录",
+                "iconPath": "static/tab/homed.png",
+                "selectedIconPath": "static/tab/home4.png"
+            },
+            {
+                "pagePath": "pages/me/index",
+                "text": "我的",
+                "iconPath": "static/tab/homee.png",
+                "selectedIconPath": "static/tab/home5.png"
             }
         ]
     }

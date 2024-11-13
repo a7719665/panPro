@@ -49,7 +49,7 @@
                         <uv-checkbox-group v-model="checkboxValue" shape="circle">
                             <uv-checkbox v-model="info.remember" :customStyle="{ marginBottom: '8px' }" name="记住密码">记住密码</uv-checkbox>
                         </uv-checkbox-group>
-                        <span class="forget_password">忘记密码？</span>
+                        <span class="forget_password" @click="toForgetPassword">忘记密码？</span>
                     </view>
                     <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
                     <div class="login_btn">登录</div>
@@ -155,6 +155,11 @@ const info = ref({
 const checkboxValue = ref(['记住密码']);
 //显示登录还是显示注册
 const isLogin = ref(false);
+const toForgetPassword = () => {
+    uni.navigateTo({
+        url: '/pages/login/ForgetPassword'
+    });
+};
 </script>
 
 <style scoped lang="scss">
