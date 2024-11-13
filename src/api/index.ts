@@ -196,7 +196,7 @@ export function getGreatList(data: any) {
 export function login(data: any) {
     return http<any>({
         method: 'POST',
-        url: `api/login.php?usename=${data.usename}&usepwd=${data.usepwd}`,
+        url: `/api/login.php?usename=${data.usename}&usepwd=${data.usepwd}`,
         // header: {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         // }

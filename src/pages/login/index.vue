@@ -162,8 +162,6 @@ const toForgetPassword = () => {
     });
 };
 const loginClick = () => {
-    register();
-    return;
     login(info.value).then((res: any) => {
         console.log(res);
         var res = res.data;
