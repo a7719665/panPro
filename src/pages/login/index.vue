@@ -8,12 +8,12 @@
 
             <div class="botpanel" v-if="isLogin">
                 <div class="zk">
-                    <div>
+                    <div @click="isLogin = true">
                         <p class="login_title">登录</p>
                         <span class="login_span"></span>
                     </div>
-                    <div>
-                        <p class="register_title">注册</p>
+                    <div @click="isLogin = false">
+                        <p class="register_title  mb-40rpx">注册</p>
                         <span style="background: none"></span>
                     </div>
                 </div>
@@ -57,11 +57,11 @@
             </div>
             <div class="botpanel_register" v-else>
                 <div class="zk">
-                    <div>
-                        <p class="register_title">登录</p>
+                    <div @click="isLogin = true">
+                        <p class="register_title mb-40rpx">登录</p>
                         <span style="background: none"></span>
                     </div>
-                    <div>
+                    <div @click="isLogin = false">
                         <p class="login_title">注册</p>
                         <span class="login_span"></span>
                     </div>
