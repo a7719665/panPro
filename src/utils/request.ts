@@ -13,15 +13,17 @@
 import { useUserStore } from '@/stores/modules/userStore';
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
-
+//反向代理关键词
+const proxyKey = '/agent'
+//服务器定义的url前缀
+const urlPrefix = '/api/'
 // 添加拦截器
 const httpInterceptor = {
     // 拦截前触发
     invoke(options: UniApp.RequestOptions) {
-        console.log(options)
         // 1. 非 http 开头需拼接地址
         if (!options.url.startsWith('http')) {
-            options.url = baseURL + '/agent' + options.url;
+            options.url = baseURL + proxyKey + urlPrefix + options.url;
         }
         // 2. 请求超时, 默认 60s
         options.timeout = 15000;
@@ -34,8 +36,12 @@ const httpInterceptor = {
         const userStore = useUserStore();
         const token = uni.getStorageSync('token');
         if (token) {
-            options.url += '?token=' + token;
-           // options.header.Authorization = token;
+            if (options.url.indexOf('?') == -1) {
+                options.url += '?token=' + token;
+            } else {
+                options.url += '&token=' + token;
+            }
+            // options.header.Authorization = token;
         }
     }
 };
@@ -74,6 +80,16 @@ export const http = <T>(options: UniApp.RequestOptions) => {
             ...options,
             // 响应成功
             success(res) {
+                const data = res.data as any;
+                if (data.result == 'false') {
+                    uni.showToast({
+                        icon: 'none',
+                        title: data.msg || '请求错误'
+                    });
+                    uni.navigateTo({ url: '/pages/login/index' });
+
+                    reject(res);
+                }
                 // 状态码 2xx， axios 就是这样设计的
                 if (res.statusCode >= 200 && res.statusCode < 300) {
                     //if(res.data.result)

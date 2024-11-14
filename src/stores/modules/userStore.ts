@@ -8,6 +8,8 @@ export const useUserStore = defineStore('user', () => {
     const userId = ref();
     let wxCode = ref(); //服务器用来获取用户搜索历史记录的唯一id
     const chanyeRange = ref<Array<Object>>([]); // 用户权限编码集合 → 判断按钮权限
+    //图片前缀url
+    const prefixUrl = ref('https://my201hongy.zvrxw.com/');
     function getOpenID() {
         uni.login({
             provider: 'weixin', //使用微信登录
@@ -51,7 +53,8 @@ export const useUserStore = defineStore('user', () => {
         reqChanyeNames,
         userId,
         wxCode,
-        getOpenID
+        getOpenID,
+        prefixUrl
     };
 });
 

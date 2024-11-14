@@ -1,8 +1,8 @@
 <template>
     <view class="container">
-        <uv-swiper :list="list" height="360rpx" class=""></uv-swiper>
+        <uv-swiper :list="slides" height="360rpx" class="" keyName="pic" ></uv-swiper>
         <view class="notice-warp">
-            <uv-notice-bar :text="text" bgColor="#2f2e5e" color="#fff" speed="20"></uv-notice-bar>
+            <uv-notice-bar :text="announcementText"  bgColor="#2f2e5e" color="#fff" speed="20"></uv-notice-bar>
         </view>
         <div class="top_content">
             <div class="con_list">
@@ -34,32 +34,76 @@
         </div>
 
         <div class="Popular"><img src="@/static/img/yb.png" alt="" /> <span>信用卡知识</span> <img src="@/static/img/zb.png" alt="" /></div>
-        <div class="division_warp clearfix">
-            <div class="division">
-                <img src="https://my201hongy.zvrxw.com//pic/tie/202210102292328492.jpg" alt="" />
-                <p>信用卡逾期怎么办 <span>5780230阅读</span></p>
-            </div>
-            <div class="division">
-                <img src="https://my201hongy.zvrxw.com//pic/tie/202210102275376804.jpg" alt="" />
-                <p>信用卡申请 <span>902325阅读</span></p>
-            </div>
-            <div class="division">
-                <img src="https://my201hongy.zvrxw.com//pic/tie/202210102224324442.jpg" alt="" />
-                <p>各银行信用卡提额 <span>10215820阅读</span></p>
+        <div class="division_warp">
+            <div class="division" v-for="item in creditCardList" :key="item.id" @click="toCreditCard(item)">
+                <img :src="prefixUrl + item.pic" alt="" />
+                <p>{{ item.title }} <span>{{item.hits}}阅读</span></p>
             </div>
         </div>
     </view>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { getbanner, getuserdetail, getIndex } from '@/api';
+import { useUserStore } from '@/stores/modules/userStore';
+import { storeToRefs } from 'pinia';
+const userStore = useUserStore();
+const { prefixUrl } = storeToRefs(userStore);
 const toGreat = () => {
     uni.navigateTo({
         url: '/pages/great/index'
     });
 };
-const text = ref('鸿运平台温馨提醒各位代还员：近年来通过市场调研发现有平台存在恶意模仿、复制鸿运平台机制等不法行为，通过高额返现、高利回报、伪造鸿运平台证明等行为导致代还员直接造成经济财产损失。因此鸿运平台温馨提醒各位代还！平台所有代还员如遇上述情况也可随时提交受骗资料证据向小助理举报，一经查证平台法务部门将依法惩处此类不法行为！');
-
+//公告text
+const announcementText = ref('')
+let announcementList = []
+//信用卡知识list
+const creditCardList = ref([])
 const list = ref(['https://cdn.uviewui.com/uview/swiper/swiper1.png', 'https://cdn.uviewui.com/uview/swiper/swiper2.png', 'https://cdn.uviewui.com/uview/swiper/swiper3.png']);
+const slides = ref([]);
+const reqBanner = () => {
+    getbanner().then((res) => {
+        res.banner.forEach((item) => {
+            item.pic = prefixUrl.value + item.pic;
+        });
+        slides.value = res.banner;
+    });
+};
+const data = ref({});
+const InitData = () => {
+    getuserdetail().then((res) => {
+        data.value = res;
+    });
+};
+const indexData = ref({});
+const ulList = ref([]);
+const remen = ref([]);
+const adv_ = ref(false);
+const getIndexData = () => {
+    getIndex().then((res) => {
+        // data.value = res;
+        creditCardList.value = res.zixun;
+        announcementList = res.gonggao.map((item)=>{
+            return item.usename;
+        })
+        announcementText.value = announcementList.join(' ');
+        if (indexData.value.tanchuang != '') {
+            adv_.value = true;
+        }
+    });
+};
+const toCreditCard = (item) => {
+    window.open(item.con);
+};
+onMounted(() => {
+});
+onShow(() => {
+    if (ulList.value.length == 0) {
+        reqBanner();
+        InitData();
+        getIndexData();
+    }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -147,8 +191,9 @@ const list = ref(['https://cdn.uviewui.com/uview/swiper/swiper1.png', 'https://c
 .division_warp {
     width: 94%;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
     .division {
-        float: left;
         width: 44%;
         margin: 10rpx 20rpx; /* 0.05rem x 200 = 10rpx, 1% x 200 = 20rpx */
         background-color: #2f2e5e;
