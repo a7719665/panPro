@@ -30,13 +30,15 @@
         </div>
         <div class="zp"><img src="@/static/img/zhuanpan.png" /></div>
         <div class="activit_warp">
-            <div class="ctiv_warp"><img src="@/static/img/huo1.png" /> <img src="@/static/img/huo2.png" style="margin: 0.1rem 0px" /> <img src="@/static/img/huo3.png" /></div>
+            <div class="ctiv_warp"><img src="@/static/img/huo1.png" /> 
+                <img src="@/static/img/huo2.png"/>
+                 <img src="@/static/img/huo3.png" /></div>
         </div>
 
         <div class="Popular"><img src="@/static/img/yb.png" alt="" /> <span>信用卡知识</span> <img src="@/static/img/zb.png" alt="" /></div>
         <div class="division_warp">
             <div class="division" v-for="item in creditCardList" :key="item.id" @click="toCreditCard(item)">
-                <img :src="prefixUrl + item.pic" alt="" />
+                <image :src="prefixUrl + item.pic" mode="widthFix" />
                 <p>{{ item.title }} <span>{{item.hits}}阅读</span></p>
             </div>
         </div>
@@ -155,18 +157,16 @@ onShow(() => {
 .activit_warp {
     width: 92%;
     margin: 0.1rem auto 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
+    
     .ctiv_warp {
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
         flex: 1;
-        line-height: 0.45rem;
+        line-height:90rpx;
     }
     img {
         width: 100%;
         display: block;
+        margin-bottom: 10px;
     }
 }
 
@@ -199,7 +199,7 @@ onShow(() => {
         background-color: #2f2e5e;
         border-radius: 30rpx 30rpx 30rpx 30rpx; /* 0.15rem x 200 = 30rpx */
     }
-    img {
+    image {
         width: 100%;
         height: 261.16rpx; /* 130.58px x 200 = 261.16rpx */
         border-radius: 30rpx 30rpx 0 0; /* 0.15rem x 200 = 30rpx */
