@@ -1,91 +1,86 @@
 <template>
-    <div class="container">
+    <view class="container">
         <img src="@/static/img/lclclc.png" alt="" class="licai" />
-        <div class="alance_conternt">
-            <div class="zichang_cen">
+        <view class="alance_conternt">
+            <view class="zichang_cen">
                 <p>总资产(元)</p>
                 <span>0</span>
-                <div class="yuebap_main">
-                    <div>
+                <view class="yuebap_main">
+                    <view>
                         <p>余额宝</p>
-                        <span>+8.0000</span>
-                    </div>
-                    <div style="text-align: center">
+                        <span>+{{ info.yue }}</span>
+                    </view>
+                    <view style="text-align: center">
                         <p>总收益</p>
-                        <span> +0</span>
-                    </div>
-                    <div style="text-align: right">
+                        <span> +{{ info.zongshouyi }}</span>
+                    </view>
+                    <view style="text-align: right">
                         <p>昨日收益</p>
-                        <span>+0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="pde pl-40rpx pr-40rpx">
+                        <span>+{{ info.zuoshouyi }}</span>
+                    </view>
+                </view>
+            </view>
+            <view class="pde pl-40rpx pr-40rpx">
                 <!-- <input type="number" placeholder="请输入金额" class="enterMoney" /> -->
                 <uv-input class="enterMoney" v-model="money" placeholder="请输入金额" />
-                <div class="led_warp">
-                    <div class="led"><p style="background: none" @click="outClick">转出</p></div>
-                    <div class="led"><p style="color: rgb(255, 255, 255)" @click="inClick">转入</p></div>
-                </div>
-            </div>
-            <div class="serve_warp">
+                <view class="led_warp">
+                    <view class="led"><p style="background: none" @click="outClick">转出</p></view>
+                    <view class="led"><p style="color: rgb(255, 255, 255)" @click="inClick">转入</p></view>
+                </view>
+            </view>
+            <view class="serve_warp">
                 <p>请选择理财产品</p>
                 <span></span>
-            </div>
-        </div>
-        <div class="income_wao">
-            <div class="income_warp" @click="activeClick">
-                <div class="income">
+            </view>
+        </view>
+        <view class="income_wao">
+            <view class="income_warp" :class="selectIndex == index ? 'active' : ''" @click="activeClick(index)" v-for="(item, index) in datalists" :key="index">
+                <view class="income">
                     <p>
-                        0.60% <span>(预计收益) <i>立即投资</i></span>
+                        {{ item.shouyi }}% <span>(预计收益) <i @click="touziClick(item, index)">立即投资</i></span>
                     </p>
-                </div>
-                <div class="inc">
-                    <img src="@/static/img/rili.png" alt="" /> <span>理财天数90天 <i>(1元起存)</i></span>
-                </div>
+                </view>
+                <view class="inc">
+                    <img src="@/static/img/rili.png" alt="" />
+                    <span
+                        >理财天数{{ item.days }}天 <i>({{ item.moneys }}元起存)</i></span
+                    >
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <uv-popup ref="popup">
+        <view class="withdraw_wrap touzi_wrap">
+            <p class="withdraw_tit">请输入投资金额</p>
+            <div class="withdraw_list" style="padding: 20rpx">
+                <uv-input type="number" placeholder="请输入金额" v-model="enterMoney" background="#e8e8e8" />
             </div>
-            <div class="income_warp">
-                <div class="income">
-                    <p>
-                        0.05% <span>(预计收益) <i>立即投资</i></span>
-                    </p>
-                </div>
-                <div class="inc">
-                    <img src="@/static/img/rili.png" alt="" /> <span>理财天数1天 <i>(1元起存)</i></span>
-                </div>
-            </div>
-            <div class="income_warp">
-                <div class="income">
-                    <p>
-                        0.07% <span>(预计收益) <i>立即投资</i></span>
-                    </p>
-                </div>
-                <div class="inc">
-                    <img src="@/static/img/rili.png" alt="" /> <span>理财天数3天 <i>(1元起存)</i></span>
-                </div>
-            </div>
-            <div class="income_warp">
-                <div class="income">
-                    <p>
-                        0.10% <span>(预计收益) <i>立即投资</i></span>
-                    </p>
-                </div>
-                <div class="inc">
-                    <img src="@/static/img/rili.png" alt="" /> <span>理财天数7天 <i>(1元起存)</i></span>
-                </div>
-            </div>
-        </div>
-    </div>
+            <button class="btn active_btn quedingbtn" style="background-color: rgb(117, 33, 96); width: 80%; margin: 0.2rem auto 0px">确定</button>
+        </view>
+    </uv-popup>
 </template>
 <script setup lang="ts">
-const score = ref(0);
-
+import { getGreat, getposition } from '@/api';
+import { ref, onMounted } from 'vue';
+const popup = ref<any>(null);
+//转出转入金额
+const money = ref('');
 const outClick = () => {
     console.log('转出');
     uni.showToast({
         title: '转出',
         icon: 'none'
     });
+};
+//弹窗输入金额
+const enterMoney = ref('');
+const touzi_con = ref(false);
+const touziClick = (item: any, index: number) => {
+    activeClick(index);
+    touzi_con.value = true;
+    money.value = '';
+    popup.value?.open();
 };
 const inClick = () => {
     console.log('转入');
@@ -94,6 +89,22 @@ const selectIndex = ref(0);
 const activeClick = (index: number) => {
     selectIndex.value = index;
 };
+const datalists = ref<any>([]);
+const getData = () => {
+    getGreat().then((res: any) => {
+        datalists.value = res.licai;
+    });
+};
+const info = ref<any>({});
+const getyuebao = () => {
+    getposition().then((res: any) => {
+        info.value = res;
+    });
+};
+onMounted(() => {
+    getData();
+    getyuebao();
+});
 </script>
 <style lang="scss" scoped>
 .container {
@@ -124,7 +135,7 @@ const activeClick = (index: number) => {
 
         .yuebap_main {
             display: flex;
-            div {
+            view {
                 flex: 1;
                 margin-top: 20rpx;
             }
@@ -197,6 +208,7 @@ const activeClick = (index: number) => {
 .active {
     border: 0 solid #7582fc !important;
     color: #fff !important;
+    background: linear-gradient(220.24deg, rgba(117, 130, 252, 0.5) 10%, #f355ff);
 }
 .income_warp {
     background-color: hsla(0, 0%, 100%, 0.45);
@@ -209,6 +221,16 @@ const activeClick = (index: number) => {
         font-size: 48rpx; /* 0.24rem x 200 = 48rpx */
         span {
             font-size: 26rpx; /* 0.13rem x 200 = 26rpx */
+        }
+        i {
+            font-style: normal;
+            font-size: 28rpx; /* 0.14rem x 200 = 28rpx */
+            float: right;
+            margin-top: 8rpx; /* 0.04rem x 200 = 8rpx */
+            margin-right: 20rpx; /* 0.1rem x 200 = 20rpx */
+            background-color: #d43030;
+            padding: 8rpx 26rpx; /* 0.04rem x 200 = 8rpx, 0.13rem x 200 = 26rpx */
+            border-radius: 50rpx; /* 0.25rem x 200 = 50rpx */
         }
     }
     .inc {
@@ -232,5 +254,53 @@ const activeClick = (index: number) => {
             }
         }
     }
+}
+.touzi_wrap {
+    position: fixed;
+    top: 400rpx; /* 2rem x 200 = 400rpx */
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: auto !important;
+    width: 90%;
+    background: #fff;
+    padding-bottom: 40rpx; /* 0.2rem x 200 = 40rpx */
+    border-radius: 30rpx; /* 0.15rem x 200 = 30rpx */
+}
+.withdraw_tit {
+    color: #333;
+    line-height: 80rpx; /* 0.4rem x 200 = 80rpx */
+    padding-left: 20rpx; /* 0.1rem x 200 = 20rpx */
+    font-size: 28rpx; /* 0.14rem x 200 = 28rpx */
+    background: hsla(0, 0%, 100%, .1) !important;
+    font-size: 34rpx !important; /* 0.17rem x 200 = 34rpx */
+    text-align: left;
+    font-weight: 700;
+    text-align: center !important;
+    margin-top: 20rpx; /* 0.1rem x 200 = 20rpx */
+}
+.withdraw_list {
+    background: #fff;
+    padding: 0 20rpx; /* 0.1rem x 200 = 20rpx */
+    line-height: 80rpx; /* 0.4rem x 200 = 80rpx */
+    color: #939ba4;
+    font-size: 28rpx; /* 0.14rem x 200 = 28rpx */
+    position: relative;
+}
+.quedingbtn{
+    
+    background-color: rgb(117, 33, 96);
+    width: 80%;
+    margin: 40rpx auto 0px; /* 0.2rem x 200 = 40rpx */
+    display: block;
+    line-height: 80rpx; /* 0.4rem x 200 = 80rpx */
+    border-radius: 44rpx; /* 0.22rem x 200 = 44rpx */
+    text-align: center;
+    color: #fff;
+    font-size: 28rpx; /* 0.14rem x 200 = 28rpx */
+    border: 0;
+    font-size: 28rpx;
+    color: #fff;
+
 }
 </style>
