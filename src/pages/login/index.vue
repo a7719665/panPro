@@ -164,7 +164,6 @@ const toForgetPassword = () => {
 const loginClick = () => {
     login(info.value).then((res: any) => {
         console.log(res);
-        var res = res.data;
         if (res.result == 'true') {
             globalTool.setStore('token', res.token);
             if (!!check.value) {

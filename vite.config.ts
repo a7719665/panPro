@@ -37,6 +37,9 @@ export default defineConfig(async () => {
           rewrite: (path) => path.replace(/^\/agent/, '') // 可选：重写路径
         }
       }
+    },
+    build: {
+      sourcemap: true
     }
   }
 })
