@@ -19,6 +19,12 @@
             }
         },
         {
+            "path": "pages/xindai/index",
+            "style": {
+                "navigationBarTitleText": "代还中心"
+            }
+        },
+        {
             "path": "pages/bankrecharge/index",
             "style": {
                 "navigationBarTitleText": "人民币充值"
@@ -92,7 +98,7 @@
                 "selectedIconPath": "static/tab/home2.png"
             },
             {
-                "pagePath": "pages/me/index",
+                "pagePath": "pages/xindai/index",
                 "text": "代还中心",
                 "iconPath": "static/tab/homec.png",
                 "selectedIconPath": "static/tab/home3.png"
