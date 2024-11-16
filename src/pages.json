@@ -12,10 +12,28 @@
                 "navigationBarTitleText": "首页"
             }
         },
+        {                  
+            "path": "pages/service/index",
+            "style": {
+                "navigationBarTitleText": "客服"
+            }
+        },
+        {
+            "path": "pages/bankrecharge/index",
+            "style": {
+                "navigationBarTitleText": "人民币充值"
+            }
+        },
         {
             "path": "pages/great/index",
             "style": {
                 "navigationBarTitleText": ""
+            }
+        },
+        {
+            "path": "pages/rechargeType/index",
+            "style": {
+                "navigationBarTitleText": "充值方式"
             }
         },
         {
@@ -62,7 +80,7 @@
                 "selectedIconPath": "static/tab/home5.png"
             },
             {
-                "pagePath": "pages/me/index",
+                "pagePath": "pages/service/index",
                 "text": "客服",
                 "iconPath": "static/tab/homeb.png",
                 "selectedIconPath": "static/tab/home2.png"

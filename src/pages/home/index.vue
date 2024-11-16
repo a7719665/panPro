@@ -10,7 +10,7 @@
                     <img src="@/static/img/licai.png" alt="" />
                     <p>余额宝</p>
                 </div>
-                <div>
+                <div @click="toRecharge">
                     <img src="@/static/img/congzhi.png" alt="" />
                     <p>充值</p>
                 </div>
@@ -54,6 +54,11 @@ const { prefixUrl } = storeToRefs(userStore);
 const toGreat = () => {
     uni.navigateTo({
         url: '/pages/great/index'
+    });
+};
+const toRecharge = () => {
+    uni.navigateTo({
+        url: '/pages/rechargeType/index'
     });
 };
 //公告text

@@ -14,9 +14,9 @@ import { useUserStore } from '@/stores/modules/userStore';
 
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 //反向代理关键词
-const proxyKey = '/agent'
+const proxyKey = '/agent';
 //服务器定义的url前缀
-const urlPrefix = '/api/'
+const urlPrefix = '/api/';
 // 添加拦截器
 const httpInterceptor = {
     // 拦截前触发
@@ -36,10 +36,16 @@ const httpInterceptor = {
         const userStore = useUserStore();
         const token = uni.getStorageSync('token');
         if (token) {
-            if (options.url.indexOf('?') == -1) {
-                options.url += '?token=' + token;
+            if (options.method == 'GET') {
+                if (options.url.indexOf('?') == -1) {
+                    options.url += '?token=' + token;
+                } else {
+                    options.url += '&token=' + token;
+                }
             } else {
-                options.url += '&token=' + token;
+                options.data ? (options.data as any).token = token : (options.data = {
+                    token: token
+                });
             }
             // options.header.Authorization = token;
         }
@@ -82,12 +88,15 @@ export const http = <T>(options: UniApp.RequestOptions) => {
             success(res) {
                 const data = res.data as any;
                 if (data.result == 'false') {
+                    console.log('data.result == false', data);
                     uni.showToast({
                         icon: 'none',
                         title: data.msg || '请求错误'
                     });
-                    uni.navigateTo({ url: '/pages/login/index' });
-
+                    if (data.msg == '签名错误' || data.msg == '请重新登录' || data.msg == '提示：您已在其它地方登录。') {
+                        uni.navigateTo({ url: '/pages/login/index' });
+                        uni.clearStorageSync();
+                    }
                     reject(res);
                 }
                 // 状态码 2xx， axios 就是这样设计的

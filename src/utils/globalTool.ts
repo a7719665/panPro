@@ -1,10 +1,13 @@
 import { http } from './request';
 
 export default {
-    showModal: function (content: any, cb: Function) {
+    showModal: function (content: any, cb: Function, showCancel: boolean = false, title: string = '提示', confirmText: string = '确定', cancelText: string = '取消') {
         uni.showModal({
-            title: '提示',
+            title: title,
             content: content,
+            showCancel: showCancel,
+            confirmText: confirmText,
+            cancelText: cancelText,
             success: function (res) {
                 if (res.confirm && cb instanceof Function) {
                     cb();
@@ -131,5 +134,37 @@ export default {
             content = JSON.stringify(content);
         }
         uni.setStorageSync(name, content);
+    },
+
+    copyText: function (text: string, tips: string = '已复制到剪贴板') {
+        if (navigator.clipboard) {
+            navigator.clipboard
+                .writeText(text)
+                .then(() => {
+                    this.showToast(tips);
+                })
+                .catch((err) => {
+                    this.showToast('复制失败,请手动长按复制');
+                });
+        } else {
+            // TipsManger.getInstance().showTips('当前浏览器不支持粘贴板功能');
+            this.fallbackCopyTextToClipboard(text, tips);
+        }
+    },
+    fallbackCopyTextToClipboard: function (text: string, tips: string) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            console.log('Fallback: Copying text command was ' + (successful ? 'successful' : 'unsuccessful'));
+            this.showToast(tips);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+            this.showToast('复制失败,请手动长按复制');
+        }
+        document.body.removeChild(textArea);
     }
 };

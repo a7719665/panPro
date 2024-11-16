@@ -146,6 +146,7 @@ const ok = () => {
 };
 
 onMounted(() => {
+    console.log('onMounted');
     getData();
     getyuebao();
 });
@@ -153,6 +154,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .container {
     width: 100vw;
+    min-height: 100vh;
     background: linear-gradient(180deg, #24234c, #0f0f1c);
 }
 
