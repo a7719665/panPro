@@ -1,6 +1,8 @@
 <template>
     <view class="container">
-        <img src="@/static/imgs/lxkf.png" alt="" class="kef" />
+        <img src="@/static/img/ccczzz.png" alt="" class="kef" @click="serviceClick" />
+        <i class="lxkfbtn">联系客服</i>
+
         <div class="cz">
             <p>充值金额（请不要充整数）</p>
             <uv-input type="nimber" placeholder="请输入充值金额" class="bg-white" v-model="money" />
@@ -21,7 +23,7 @@
             <p>2：完成充值后，请上传交易凭证，并点击我已完成支付，等待系统审核到账。</p>
             <p>3：由于会员充值过多，转账成功后请联系在线客服核实。</p>
         </div>
-        <div class="zf" @click="ok">确认支付</div>
+        <div class="zf" @click="ok">我已完成充值</div>
     </view>
 </template>
 <script setup lang="ts">
@@ -70,8 +72,8 @@ const afterRead = async (event: any) => {
     // }
     lists.forEach((item: any) => {
         fetch(item.url)
-            .then(response => response.blob())
-            .then(blob => {
+            .then((response) => response.blob())
+            .then((blob) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(blob);
                 reader.onloadend = () => {
@@ -87,7 +89,7 @@ const afterRead = async (event: any) => {
                     src.value = base64data;
                 };
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error converting to Base64:', error);
             });
     });
@@ -112,7 +114,6 @@ const uploadFilePromise = (url: string) => {
         });
     });
 };
-
 
 const randomString = (len: number) => {
     let $chars = 'ABCDEFGHJKMNPQRSTWXYZ2345678';
@@ -148,7 +149,7 @@ const ok = () => {
     } else if (src.value === '') {
         globalTool.showToast('请输入上传充值凭证');
     } else {
-        bankRecharge(money.value, beizhu.value, src.value, '1').then((res) => {
+        bankRecharge(money.value, beizhu.value, src.value, '3').then((res) => {
             globalTool.showModal('提交成功', () => {
                 uni.navigateBack();
             });
@@ -173,7 +174,7 @@ onMounted(() => {
 .cz {
     width: 90%;
     margin: 0 auto;
-    margin-top: 40rpx;
+    margin-top: -48rpx;
     p {
         color: #000;
         font-size: 30rpx; /* 0.15rem * 200 */
@@ -233,5 +234,16 @@ onMounted(() => {
     color: #fff;
     line-height: 90rpx; /* 0.45rem * 200 */
     border-radius: 70rpx; /* 0.35rem * 200 */
+}
+.lxkfbtn {
+    position: absolute;
+    z-index: 5;
+    left: 40rpx;
+    top: 280rpx;
+    border-radius: 50rpx;
+    font-style: normal;
+    color: #fff;
+    padding: 12rpx 40rpx;
+    background-color: #7948ea;
 }
 </style>

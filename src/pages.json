@@ -25,6 +25,12 @@
             }
         },
         {
+            "path": "pages/usdtrecharge/index",
+            "style": {
+                "navigationBarTitleText": "海外USDT充值"
+            }
+        },
+        {
             "path": "pages/great/index",
             "style": {
                 "navigationBarTitleText": ""

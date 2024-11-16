@@ -22,7 +22,7 @@ const handleRecharge = (type: string) => {
         });
     } else {
         uni.navigateTo({
-            url: '/pages/bankrecharge/index'
+            url: '/pages/usdtrecharge/index'
         });
     }
 };
