@@ -12,6 +12,12 @@
                 "navigationBarTitleText": "首页"
             }
         },
+        {
+            "path": "pages/donate/index",
+            "style": {
+                "navigationBarTitleText": "记录"
+            }
+        },
         {                  
             "path": "pages/service/index",
             "style": {
@@ -104,7 +110,7 @@
                 "selectedIconPath": "static/tab/home3.png"
             },
             {
-                "pagePath": "pages/me/index",
+                "pagePath": "pages/donate/index",
                 "text": "记录",
                 "iconPath": "static/tab/homed.png",
                 "selectedIconPath": "static/tab/home4.png"
