@@ -57,7 +57,7 @@
             <p>我的服务</p>
             <span></span>
         </view>
-        <img src="@/static/img/yqhyyqhy.png" class="hy" />
+        <img src="@/static/img/yqhyyqhy.png" class="hy" @click="spreadClick" />
         <view class="data_warp">
             <view class="ta2"><img src="@/static/img/hdzx.png" /></view>
             <view class="data">
@@ -94,6 +94,11 @@ const rechargeDetail = () => {
 const withdrawDetail = () => {
     uni.navigateTo({
         url: '/pages/withdrawDetail/index'
+    });
+};
+const spreadClick = () => {
+    uni.navigateTo({
+        url: '/pages/spread/index'
     });
 };
 const userInfo = ref<any>({}); //用户信息

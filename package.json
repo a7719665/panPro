@@ -53,7 +53,9 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-4020920240930001",
     "@unocss/vite": "^0.64.0",
     "pinia": "^2.0.36",
+    "qrcodejs2": "^0.0.2",
     "sass": "^1.79.3",
+    "uqrcodejs": "^4.0.7",
     "vue": "^3.4.31",
     "vue-i18n": "^9.1.9"
   },

@@ -31,6 +31,12 @@
             }
         },
         {
+            "path": "pages/spread/index",
+            "style": {
+                "navigationBarTitleText": "邀请好友"
+            }
+        },
+        {
             "path": "pages/rechargeDetail/index",
             "style": {
                 "navigationBarTitleText": "充值明细"
