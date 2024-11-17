@@ -19,6 +19,12 @@
             }
         },
         {
+            "path": "pages/accountDetail/index",
+            "style": {
+                "navigationBarTitleText": "账户明细"
+            }
+        },
+        {
             "path": "pages/donate/index",
             "style": {
                 "navigationBarTitleText": "记录"
