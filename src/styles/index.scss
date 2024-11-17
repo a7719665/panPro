@@ -7,6 +7,12 @@ view {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.notdata {
+    color: #fff;
+    line-height: 30rpx;
+    text-align: center;
+    font-size: 28rpx;
+}
 .container {
     position: relative;
     width: 100vw;
