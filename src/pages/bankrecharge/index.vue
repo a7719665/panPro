@@ -37,37 +37,20 @@ const money = ref('');
 const beizhu = ref('');
 const src = ref('');
 const fileList1 = ref<any>([]);
-// 删除图片
-const deletePic = (event: any) => {
-    fileList1.value.splice(event.index, 1);
-};
 const serviceClick = () => {
     uni.switchTab({
         url: '/pages/service/index'
     });
+};
+// 删除图片
+const deletePic = (event: any) => {
+    fileList1.value.splice(event.index, 1);
 };
 // 新增图片
 const afterRead = async (event: any) => {
     // 当设置 multiple 为 true 时, file 为数组格式，否则为对象格式
     let lists = Array.isArray(event.file) ? event.file : [event.file];
     let fileListLen = fileList1.value.length;
-    // lists.forEach((item: any) => {
-    //     fileList1.value.push({
-    //         ...item,
-    //         status: 'uploading',
-    //         message: '上传中'
-    //     });
-    // });
-    // for (let i = 0; i < lists.length; i++) {
-    //     const result = await uploadFilePromise(lists[i].url);
-    //     let item = fileList1.value[fileListLen + i];
-    //     fileList1.value.splice(fileListLen + i, 1, {
-    //         ...item,
-    //         status: 'success',
-    //         message: '',
-    //         url: result
-    //     });
-    // }
     lists.forEach((item: any) => {
         fetch(item.url)
             .then(response => response.blob())
@@ -92,26 +75,7 @@ const afterRead = async (event: any) => {
             });
     });
 };
-const uploadFilePromise = (url: string) => {
-    return new Promise((resolve, reject) => {
-        uni.uploadFile({
-            url: 'http://192.168.2.21:7001/upload', // 仅为示例，非真实的接口地址
-            filePath: url,
-            name: 'file',
-            formData: {
-                user: 'test'
-            },
-            success: (res) => {
-                setTimeout(() => {
-                    resolve(res.data);
-                }, 1000);
-            },
-            fail: (err) => {
-                reject(err);
-            }
-        });
-    });
-};
+
 
 
 const randomString = (len: number) => {

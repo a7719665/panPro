@@ -1,74 +1,80 @@
 <template>
-    <div class="my_warp content" style="height: 100%; overflow: scroll">
-        <div class="my">
-            <div class="content">
+    <view class="my_warp content" style="height: 100%; overflow: scroll">
+        <view class="my">
+            <view class="content">
                 <img src="@/static/img/logo1.png" alt="" style="height: 140rpx" />
-                <div class="con clearfix">
+                <view class="con clearfix">
                     <p>ID：13000000000<a href="https://my201hongy.zvrxw.com//html" target="_blank">下载APP</a></p>
-                    <div><span>未认证</span></div>
-                </div>
-            </div>
-            <div class="zichang_wrap">
-                <div class="zi_zong">
-                    <div>
+                    <view @click="certificationClick"><span>未认证</span></view>
+                </view>
+            </view>
+            <view class="zichang_wrap">
+                <view class="zi_zong">
+                    <view>
                         <p>账户余额</p>
                         <span>360000</span>
-                    </div>
-                    <div style="text-align: right; padding-top: 20rpx"><i>充值</i> <i style="background: rgb(100, 58, 184)">提现</i></div>
-                </div>
-                <div class="shuju_warp" style="text-align: left">
-                    <div class="shuju">
+                    </view>
+                    <view style="text-align: right; padding-top: 20rpx"><i>充值</i> <i style="background: rgb(100, 58, 184)">提现</i></view>
+                </view>
+                <view class="shuju_warp" style="text-align: left">
+                    <view class="shuju">
                         <span>今日收益</span>
                         <p>￥0.00</p>
-                    </div>
-                    <div class="shuju" style="text-align: center">
+                    </view>
+                    <view class="shuju" style="text-align: center">
                         <span>个人分润</span>
                         <p>￥13</p>
-                    </div>
-                    <div class="shuju" style="text-align: right">
+                    </view>
+                    <view class="shuju" style="text-align: right">
                         <span>团队分润</span>
                         <p>￥15</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="used_warp">
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="used_warp">
             <span>常用功能</span> <i></i>
-            <div class="used">
-                <div class="us">
+            <view class="used">
+                <view class="us">
                     <img src="@/static/img/my1.png" alt="" />
                     <p>账户明细</p>
-                </div>
-                <div class="us">
+                </view>
+                <view class="us">
                     <img src="@/static/img/my2.png" alt="" />
                     <p>修改密码</p>
-                </div>
-                <div class="us">
+                </view>
+                <view class="us">
                     <img src="@/static/img/my3.png" alt="" />
                     <p>充值明细</p>
-                </div>
-                <div class="us">
+                </view>
+                <view class="us">
                     <img src="@/static/img/my4.png" alt="" />
                     <p>提现明细</p>
-                </div>
-            </div>
-        </div>
-        <div class="serve_warp">
+                </view>
+            </view>
+        </view>
+        <view class="serve_warp">
             <p>我的服务</p>
             <span></span>
-        </div>
+        </view>
         <img src="@/static/img/yqhyyqhy.png" class="hy" />
-        <div class="data_warp">
-            <div class="ta2"><img src="@/static/img/hdzx.png" /></div>
-            <div class="data">
-                <div class="da_warp_contenet"><img src="@/static/img/txsm.png" /> <img src="@/static/img/my6.png" /></div>
-                <div class="da_warp_contenet" style="margin-top: 10rpx"><img src="@/static/img/my7.png" /> <img src="@/static/img/jfsm.png" /></div>
-            </div>
-        </div>
-        <div class="my_tui">退出登录</div>
-    </div>
+        <view class="data_warp">
+            <view class="ta2"><img src="@/static/img/hdzx.png" /></view>
+            <view class="data">
+                <view class="da_warp_contenet"><img src="@/static/img/txsm.png" /> <img src="@/static/img/my6.png" /></view>
+                <view class="da_warp_contenet" style="margin-top: 10rpx"><img src="@/static/img/my7.png" /> <img src="@/static/img/jfsm.png" /></view>
+            </view>
+        </view>
+        <view class="my_tui">退出登录</view>
+    </view>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const certificationClick = () => {
+    uni.navigateTo({
+        url: "/pages/certification/index"
+    });
+}
+</script>
 <style scoped lang="scss">
 
 .my_warp {
@@ -129,7 +135,7 @@
         display: flex;
         padding-top: 20rpx;
         padding-bottom: 20rpx;
-        div {
+        view {
           -webkit-box-flex: 1;
           -ms-flex: 1;
           flex: 1;
