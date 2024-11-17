@@ -25,6 +25,12 @@
             }
         },
         {
+            "path": "pages/withdrawDetail/index",
+            "style": {
+                "navigationBarTitleText": "提现记录"
+            }
+        },
+        {
             "path": "pages/rechargeDetail/index",
             "style": {
                 "navigationBarTitleText": "充值明细"
