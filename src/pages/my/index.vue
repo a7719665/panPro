@@ -5,7 +5,8 @@
                 <img src="@/static/img/logo1.png" alt="" style="height: 140rpx" />
                 <view class="con clearfix">
                     <p>ID：13000000000<a href="https://my201hongy.zvrxw.com//html" target="_blank">下载APP</a></p>
-                    <view @click="certificationClick"><span v-if="!authentication">未认证</span><span v-else>已认证</span></view>
+                    <view @click="certificationClick"><span v-if="!authentication">未认证</span><span v-else>已认证</span>
+                    </view>
                 </view>
             </view>
             <view class="zichang_wrap">
@@ -14,7 +15,8 @@
                         <p>账户余额</p>
                         <span>{{ userInfo.benjin }}</span>
                     </view>
-                    <view style="text-align: right; padding-top: 20rpx"><i @click="rechargeClick">充值</i> <i style="background: rgb(100, 58, 184)" @click="withdraw">提现</i></view>
+                    <view style="text-align: right; padding-top: 20rpx"><i @click="rechargeClick">充值</i> <i
+                            style="background: rgb(100, 58, 184)" @click="withdraw">提现</i></view>
                 </view>
                 <view class="shuju_warp" style="text-align: left">
                     <view class="shuju">
@@ -59,10 +61,12 @@
         </view>
         <img src="@/static/img/yqhyyqhy.png" class="hy" @click="spreadClick" />
         <view class="data_warp">
-            <view class="ta2"><img src="@/static/img/hdzx.png" /></view>
+            <view class="ta2"><img src="@/static/img/hdzx.png" @click="infoClick(7)" /></view>
             <view class="data">
-                <view class="da_warp_contenet"><img src="@/static/img/txsm.png" /> <img src="@/static/img/my6.png" /></view>
-                <view class="da_warp_contenet" style="margin-top: 10rpx"><img src="@/static/img/my7.png" /> <img src="@/static/img/jfsm.png" /></view>
+                <view class="da_warp_contenet"><img src="@/static/img/txsm.png" @click="infoClick(5)" /> <img
+                        @click="illustrateClick(6)" src="@/static/img/my6.png" /></view>
+                <view class="da_warp_contenet" style="margin-top: 10rpx"><img @click="platformClick"
+                        src="@/static/img/my7.png" /> <img src="@/static/img/jfsm.png" @click="infoClick(6)" /></view>
             </view>
         </view>
         <view class="my_tui" @click="Logout">退出登录</view>
@@ -99,6 +103,21 @@ const withdrawDetail = () => {
 const spreadClick = () => {
     uni.navigateTo({
         url: '/pages/spread/index'
+    });
+};
+const infoClick = (type: number) => {
+    uni.navigateTo({
+        url: '/pages/info/index?type=' + type
+    });
+};
+const illustrateClick = (type: number) => {
+    uni.navigateTo({
+        url: '/pages/illustrate/index?type=' + type
+    });
+};
+const platformClick = () => {
+    uni.navigateTo({
+        url: '/pages/platform/index'
     });
 };
 const userInfo = ref<any>({}); //用户信息
@@ -191,9 +210,11 @@ onMounted(() => {
     background: linear-gradient(180deg, #24234c 0%, #0f0f1c 100%);
     height: 100%;
     padding-bottom: 160rpx;
+
     .my {
         position: relative;
         z-index: 3;
+
         .content {
             padding: 40rpx 40rpx 0 40rpx;
             display: -webkit-box;
@@ -207,9 +228,11 @@ onMounted(() => {
                 padding-left: 20rpx;
                 padding-top: 16rpx;
                 line-height: 60rpx;
+
                 p {
                     color: #ffffff;
                     font-size: 28rpx;
+
                     a {
                         color: #ffffff;
                         background: rgba(121, 72, 234, 0.22);
@@ -221,6 +244,7 @@ onMounted(() => {
                         float: right;
                     }
                 }
+
                 span {
                     color: #000000;
                     font-size: 24rpx;
@@ -231,6 +255,7 @@ onMounted(() => {
                 }
             }
         }
+
         .zichang_wrap {
             background-color: #5b56ae;
             width: 90%;
@@ -238,25 +263,30 @@ onMounted(() => {
             padding: 20rpx 40rpx;
             border-radius: 20rpx;
             margin-top: 20rpx;
+
             .zi_zong {
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
                 padding-top: 20rpx;
                 padding-bottom: 20rpx;
+
                 view {
                     -webkit-box-flex: 1;
                     -ms-flex: 1;
                     flex: 1;
                     display: inline-block;
+
                     p {
                         font-size: 24rpx;
                         color: #ffffff;
                     }
+
                     span {
                         font-size: 40rpx;
                         color: white;
                     }
+
                     i {
                         color: white;
                         display: inline-block;
@@ -270,6 +300,7 @@ onMounted(() => {
                     }
                 }
             }
+
             .shuju_warp {
                 display: -webkit-box;
                 display: -ms-flexbox;
@@ -277,14 +308,17 @@ onMounted(() => {
                 border-top: solid rgba(255, 255, 255, 0.03) 6rpx;
                 padding-top: 20rpx;
                 padding-bottom: 20rpx;
+
                 .shuju {
                     -webkit-box-flex: 1;
                     -ms-flex: 1;
                     flex: 1;
+
                     span {
                         font-size: 20rpx;
                         color: #ffffff;
                     }
+
                     p {
                         padding-top: 8rpx;
                         font-size: 40rpx;
@@ -293,28 +327,33 @@ onMounted(() => {
                 }
             }
         }
+
         .shuju_con {
             width: 91%;
             margin: 50rpx auto 20rpx auto;
             padding: 20rpx 20rpx;
             border-radius: 10rpx;
             background-color: white;
-            > p {
+
+            >p {
                 font-size: 32rpx;
                 color: #000000;
                 font-weight: bold;
                 line-height: 80rpx;
             }
+
             .data_warp {
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
+
                 .data {
                     -webkit-box-flex: 1;
                     -ms-flex: 1;
                     flex: 1;
                     text-align: center;
                     margin: auto;
+
                     span {
                         color: #cf6904;
                         font-size: 36rpx;
@@ -322,6 +361,7 @@ onMounted(() => {
                         margin-top: 20rpx;
                         display: inline-block;
                     }
+
                     p {
                         color: #383838;
                         font-size: 20rpx;
@@ -330,12 +370,14 @@ onMounted(() => {
             }
         }
     }
+
     .used_warp {
         width: 95%;
         margin: auto;
         margin-top: 20rpx;
         padding-bottom: 20rpx;
         border-radius: 20rpx;
+
         span {
             color: rgba(255, 255, 255, 0.9);
             font-size: 32rpx;
@@ -344,6 +386,7 @@ onMounted(() => {
             padding-left: 20rpx;
             font-weight: bold;
         }
+
         i {
             margin-left: 20rpx;
             background: linear-gradient(135deg, #f355ff 0%, rgba(255, 255, 255, 0.09) 100%);
@@ -351,19 +394,23 @@ onMounted(() => {
             width: 130rpx;
             height: 10rpx;
         }
+
         .used {
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
+
             .us {
                 -webkit-box-flex: 1;
                 -ms-flex: 1;
                 flex: 1;
                 text-align: center;
                 margin-top: 20rpx;
+
                 img {
                     width: 100rpx;
                 }
+
                 p {
                     color: #ffffff;
                     font-size: 28rpx;
@@ -373,13 +420,16 @@ onMounted(() => {
             }
         }
     }
+
     .serve_warp {
         padding-left: 40rpx;
+
         p {
             color: rgba(255, 255, 255, 0.9);
             font-size: 32rpx;
             padding-bottom: 8rpx;
         }
+
         span {
             background: linear-gradient(135deg, #f355ff 0%, rgba(255, 255, 255, 0.09) 100%);
             display: block;
@@ -387,30 +437,36 @@ onMounted(() => {
             height: 10rpx;
         }
     }
+
     .hy {
         width: 100%;
         display: block;
         margin: auto;
     }
+
     .data_warp {
         width: 92%;
         margin: 20rpx auto;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+
         .ta2 {
             -webkit-box-flex: 1;
             -ms-flex: 1;
             flex: 1;
             margin-right: 6rpx;
+
             img {
                 width: 100%;
             }
         }
+
         .data {
             -webkit-box-flex: 1.35;
             -ms-flex: 1.35;
             flex: 1.35;
+
             .da_warp_contenet {
                 display: -webkit-box;
                 display: -ms-flexbox;
@@ -418,6 +474,7 @@ onMounted(() => {
                 -webkit-box-align: center;
                 -ms-flex-align: center;
                 align-items: center;
+
                 img {
                     width: 48%;
                     margin: 0 1.5%;
@@ -426,6 +483,7 @@ onMounted(() => {
             }
         }
     }
+
     .my_tui {
         background: linear-gradient(112.43deg, #5b56ae 0%, #7948ea 100%);
         color: #fff;

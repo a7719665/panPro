@@ -31,6 +31,24 @@
             }
         },
         {
+            "path": "pages/info/index",
+            "style": {
+                "navigationBarTitleText": "代理说明"
+            }
+        },
+        {
+            "path": "pages/illustrate/index",
+            "style": {
+                "navigationBarTitleText": "签到说明"
+            }
+        },
+        {
+            "path": "pages/platform/index",
+            "style": {
+                "navigationBarTitleText": "平台介绍"
+            }
+        },
+        {
             "path": "pages/spread/index",
             "style": {
                 "navigationBarTitleText": "邀请好友"
