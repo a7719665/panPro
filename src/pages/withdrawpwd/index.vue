@@ -4,21 +4,56 @@
         <view class="xuigai"><p>修改支付密码</p></view>
         <view class="topay">
 
-            <input placeholder="请输入原支付密码"  type="text" v-model="value" autocomplete="off"></input>
-            <input placeholder="请输入新支付密码"  type="text" v-model="value2" autocomplete="off"></input>
-            <input placeholder="请确定支付密码"  type="text" v-model="value2" autocomplete="off"></input>
+            <input placeholder="请输入原支付密码"  type="text" v-model="usepwd" autocomplete="off"></input>
+            <input placeholder="请输入新支付密码"  type="text" v-model="newpwd" autocomplete="off"></input>
+            <input placeholder="请确定支付密码"  type="text" v-model="okpwd" autocomplete="off"></input>
 
           
             <i>密码支持6-14字符，建议数字、字母、符号组合</i>
-            <view class="ll"><p>确认</p></view>
+            <view class="ll"><p @click="modifyPwd">确认</p></view>
         </view>
         
     </view>
 </template>
 
 <script setup lang="ts">
-const value = ref('');
-const value2 = ref('');
+
+import { ref, onMounted } from 'vue';
+import { modipaypwd } from '@/api';
+import globalTool from '@/utils/globalTool';
+
+const img = ref("");
+const newpwd = ref(""); //旧登录密码
+const okpwd = ref("");
+const show = ref(false);
+const msg = ref("");
+const usepwd = ref('');//计时
+const submitBtn = ref("获取验证码"); //发送按钮提示信息
+const isClicked = ref(false); //发送按钮是否已点击
+const isLogining = ref(false); //登录按钮是否已点击
+const Token = ref("");
+
+const modifyPwd = () => {
+    if(newpwd.value === ""){
+        msg.value = "请输入支付密码";
+    } else if(okpwd.value === ""){
+        msg.value = "请输入支付密码";
+    } else if(newpwd.value !== okpwd.value){
+        msg.value = "请确保两次密码输入一致";
+    } else if(newpwd.value.length < 6 || newpwd.value.length > 16){
+        msg.value = "密码长度为6-16位";
+    } else {
+        modipaypwd( newpwd.value, usepwd.value).then(function(res){
+            globalTool.showModal('修改成功',()=>{
+                uni.navigateBack();
+            })
+        })
+
+    }
+}
+
+
+
 </script>
 <style scoped lang="scss">
 .withdrawpwd_warp {
@@ -125,9 +160,7 @@ const value2 = ref('');
                 border-bottom: 10rpx solid #000000; // 0.5px * 200 = 10rpx
                 border-radius: 0;
             }
-            ::-webkit-input-placeholder {
-                color: #fff;
-            }
+      
             i {
                 width: 140rpx; // 0.7rem * 200 = 140rpx
                 line-height: 50rpx; // 0.25rem * 200 = 50rpx

@@ -1,12 +1,12 @@
 <template>
     <div class="withdraw_warp">
         <div class="withdraw">
-            <input type="number" placeholder="请输入提现金额" />
-            <input type="text" placeholder="请输入银行卡号" :disabled="disabled" />
-            <input type="text" placeholder="请输入收款姓名" :disabled="disabled" />
-            <input type="text" placeholder="请输入银行名称" :disabled="disabled" />
-            <input type="text" placeholder="请输入开户行地址" />
-            <input type="password" placeholder="请输入支付密码" />
+            <input type="number" placeholder="请输入提现金额" v-model="money"/>
+            <input type="text" placeholder="请输入银行卡号" :disabled="disabled" v-model="bankcode" />
+            <input type="text" placeholder="请输入收款姓名" :disabled="disabled" v-model="bankuser" />
+            <input type="text" placeholder="请输入银行名称" :disabled="disabled" v-model="bankname" />
+            <input type="text" placeholder="请输入开户行地址" v-model="bankadd" />
+            <input type="password" placeholder="请输入支付密码" v-model="usepwd" />
             <span class="clearfix" @click="pwd">忘记密码</span>
             <!---->
         </div>
