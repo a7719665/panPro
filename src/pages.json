@@ -31,6 +31,12 @@
             }
         },
         {
+            "path": "pages/rule/index",
+            "style": {
+                "navigationBarTitleText": "规则"
+            }
+        },
+        {
             "path": "pages/team/index",
             "style": {
                 "navigationBarTitleText": "团队"

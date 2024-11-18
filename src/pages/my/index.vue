@@ -193,8 +193,9 @@ const getTousu = () => {
 };
 const Logout = () => {
     globalTool.showModal('确定退出登录?', () => {
+        uni.clearStorageSync();
         uni.navigateTo({
-            url: '/pages/login'
+            url: '/pages/login/index'
         });
     });
 };

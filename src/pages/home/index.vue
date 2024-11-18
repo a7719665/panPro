@@ -31,8 +31,8 @@
         <div class="zp"><img src="@/static/img/zhuanpan.png" @click="toCircle"/></div>
         <div class="activit_warp">
             <div class="ctiv_warp"><img @click="toTeam" src="@/static/img/huo1.png" /> 
-                <img src="@/static/img/huo2.png"/>
-                 <img src="@/static/img/huo3.png" /></div>
+                <img src="@/static/img/huo2.png" @click="toRule"/>
+                 <img src="@/static/img/huo3.png" @click="spreadClick" /></div>
         </div>
 
         <div class="Popular"><img src="@/static/img/yb.png" alt="" /> <span>信用卡知识</span> <img src="@/static/img/zb.png" alt="" /></div>
@@ -69,6 +69,16 @@ const toSignIn = () => {
 const toTeam = () => {
     uni.navigateTo({
         url: '/pages/team/index'
+    });
+};
+const toRule = () => {
+    uni.navigateTo({
+        url: '/pages/rule/index'
+    });
+};
+const spreadClick = () => {
+    uni.navigateTo({
+        url: '/pages/spread/index'
     });
 };
 const toPlatform = () => {

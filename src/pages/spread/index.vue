@@ -59,9 +59,10 @@ const getData = async () => {
         .catch((err: any) => {
             console.log(err);
             globalTool.showModal(err.data.msg, () => {
-                uni.switchTab({
-                    url: '/pages/my/index',
-                });
+                // uni.switchTab({
+                //     url: '/pages/my/index',
+                // });
+                uni.navigateBack();
             });
         });
 };
