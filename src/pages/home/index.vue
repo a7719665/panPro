@@ -14,23 +14,23 @@
                     <img src="@/static/img/congzhi.png" alt="" />
                     <p>充值</p>
                 </div>
-                <div>
+                <div @click="toSignIn">
                     <img src="@/static/img/qiandao.png" alt="" />
                     <p>签到</p>
                 </div>
-                <div>
+                <div @click="toPlatform">
                     <img src="@/static/img/ptjs.png" alt="" />
                     <p>平台介绍</p>
                 </div>
-                <div>
+                <div @click="toMall">
                     <img src="@/static/img/sc.png" alt="" />
                     <p>商城</p>
                 </div>
             </div>
         </div>
-        <div class="zp"><img src="@/static/img/zhuanpan.png" /></div>
+        <div class="zp"><img src="@/static/img/zhuanpan.png" @click="toCircle"/></div>
         <div class="activit_warp">
-            <div class="ctiv_warp"><img src="@/static/img/huo1.png" /> 
+            <div class="ctiv_warp"><img @click="toTeam" src="@/static/img/huo1.png" /> 
                 <img src="@/static/img/huo2.png"/>
                  <img src="@/static/img/huo3.png" /></div>
         </div>
@@ -59,6 +59,31 @@ const toGreat = () => {
 const toRecharge = () => {
     uni.navigateTo({
         url: '/pages/rechargeType/index'
+    });
+};
+const toSignIn = () => {
+    uni.navigateTo({
+        url: '/pages/signIn/index'
+    });
+};
+const toTeam = () => {
+    uni.navigateTo({
+        url: '/pages/team/index'
+    });
+};
+const toPlatform = () => {
+    uni.navigateTo({
+        url: '/pages/platform/index'
+    });
+};
+const toMall = () => {
+    uni.navigateTo({
+        url: '/pages/mall/index'
+    });
+};
+const toCircle = () => {
+    uni.navigateTo({
+        url: '/pages/circle/index'
     });
 };
 //公告text

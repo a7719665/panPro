@@ -31,6 +31,42 @@
             }
         },
         {
+            "path": "pages/team/index",
+            "style": {
+                "navigationBarTitleText": "团队"
+            }
+        },
+        {
+            "path": "pages/signIn/index",
+            "style": {
+                "navigationBarTitleText": "签到"
+            }
+        },
+        {
+            "path": "pages/circle/index",
+            "style": {
+                "navigationBarTitleText": "抽奖"
+            }
+        },
+        {
+            "path": "pages/changepwd/index",
+            "style": {
+                "navigationBarTitleText": "修改密码"
+            }
+        },
+        {
+            "path": "pages/loginpwd/index",
+            "style": {
+                "navigationBarTitleText": "修改登录密码"
+            }
+        },
+        {
+            "path": "pages/chatcon/index",
+            "style": {
+                "navigationBarTitleText": "客服"
+            }
+        },
+        {
             "path": "pages/withdraw/index",
             "style": {
                 "navigationBarTitleText": "账户提现"

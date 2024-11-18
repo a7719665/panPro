@@ -2,7 +2,7 @@
     <view class="container">
         <div class="img"><img class="imgs" src="@/static/img/hkefu.png" alt="" /></div>
         <div class="fu">
-            <p><img src="@/static/img/xiao.png" alt="" />在线客服</p>
+            <p @click="getUrl"><img src="@/static/img/xiao.png" alt="" />在线客服</p>
         </div>
 
         <div class="gd">
@@ -21,11 +21,35 @@ const apistradeList = ref<any[]>([]);
 const open = (con: string) => {
     window.open(con)
 }
-onMounted(() => {
-    getapistrade().then((res: any) => {
-        console.log(res);
+
+const tousu = ref("");
+const kefu = ref("");
+const type = ref('chaton');//chaton,
+const url = ref('');
+const dataList = ref({});
+
+const getUrl = () => {
+    const token = uni.getStorageSync('token');
+    url.value = `/api/kefu_url.php?token=${token}&type=${type.value}`;
+    uni.navigateTo({
+        url: `/pages/chatcon/index?url=${url.value}`
+    });
+    console.log(url.value);
+}
+
+
+
+const GetData = () => {
+    var that = this;
+    getapistrade().then((res:any) => {
         apistradeList.value = res.cai;
     });
+}
+
+
+
+onMounted(() => {
+    GetData();
 });
 </script>
 <style lang="scss" scoped>
