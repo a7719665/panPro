@@ -20,7 +20,15 @@ view {
     min-height: 100vh;
     background: linear-gradient(180deg, #24234c, #0f0f1c);
 }
-
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected {
+  -webkit-text-fill-color: red !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px red inset !important;
+    -webkit-text-fill-color: black !important;
+}
 div{
     box-sizing: border-box;
 }

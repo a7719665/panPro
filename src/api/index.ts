@@ -78,7 +78,7 @@ export function modicash( newpwd: string) {
     });
 }
 
-export function withdrawals2( bankcode: string, bankname: string, bankuser: string, moneys: string, usepwd: string, tday: string, bankadd: string) {
+export function withdrawals2( bankcode: string, bankname: string, bankuser: string, moneys: string, usepwd: string, tday: number, bankadd: string) {
     return http<any>({
         method: 'POST',
         url: `tixian2.php?bankadd=${bankadd}&bankcode=${bankcode}&bankname=${bankname}&bankuser=${bankuser}&moneys=${moneys}&usepwd=${usepwd}&tday=${tday}`,
@@ -211,7 +211,7 @@ export function getposition() {
     });
 }
 
-export function withdrawals( bankcode: string, bankname: string, bankuser: string, moneys: string, usepwd: string, tday: string, bankadd: string) {
+export function withdrawals( bankcode: string, bankname: string, bankuser: string, moneys: string, usepwd: string, tday: number, bankadd: string) {
     return http<any>({
         method: 'POST',
         url: `tixian.php?bankadd=${bankadd}&bankcode=${bankcode}&bankname=${bankname}&bankuser=${bankuser}&moneys=${moneys}&usepwd=${usepwd}&tday=${tday}`,

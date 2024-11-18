@@ -25,9 +25,27 @@
             }
         },
         {
+            "path": "pages/withdrawpwd/index",
+            "style": {
+                "navigationBarTitleText": "修改支付密码"
+            }
+        },
+        {
+            "path": "pages/withdraw/index",
+            "style": {
+                "navigationBarTitleText": "账户提现"
+            }
+        },
+        {
             "path": "pages/withdrawDetail/index",
             "style": {
                 "navigationBarTitleText": "提现记录"
+            }
+        },
+        {
+            "path": "pages/contact/index",
+            "style": {
+                "navigationBarTitleText": "联系客服"
             }
         },
         {
