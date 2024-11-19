@@ -4,8 +4,8 @@
             <view class="content">
                 <img src="@/static/img/logo1.png" alt="" style="height: 140rpx" />
                 <view class="con clearfix">
-                    <p>ID：13000000000<a href="https://my201hongy.zvrxw.com//html" target="_blank">下载APP</a></p>
-                    <view @click="certificationClick"><span v-if="!authentication">未认证</span><span v-else>已认证</span>
+                    <p>ID：{{ userInfo.phone }}<a href="https://my201hongy.zvrxw.com//html" target="_blank">下载APP</a></p>
+                    <view @click="certificationClick"><span >{{ authentication }}</span>
                     </view>
                 </view>
             </view>
@@ -127,6 +127,20 @@ const pay_pwd = ref(0);
 const InitData = () => {
     const that = this;
     getuserdetail().then((res: any) => {
+        //         {
+        //   "result": "true",
+        //   "uselevel": "1",
+        //   "benjin": "0",
+        //   "phone": "15623452345",
+        //   "baozhengjin": "0",
+        //   "benjin_keyong": "0",
+        //   "pay_pwd": "1",
+        //   "shouyi": "0.00",
+        //   "fenrun": "0.00",
+        //   "teamfenrun": "0.00",
+        //   "yesfenrun": "0.00",
+        //   "jinfenrun": "0.00"
+        // }
         userInfo.value = res;
         uni.setStorageSync('pay_pwd', res.pay_pwd);
     });
@@ -176,8 +190,8 @@ const getAuthenticationData = () => {
         .then((res: any) => {
             authentication.value = res.msg;
         })
-        .catch(() => {
-            authentication.value = 'false';
+        .catch((err: any) => {
+            authentication.value = err.data.msg;
         });
 };
 const getTousu = () => {

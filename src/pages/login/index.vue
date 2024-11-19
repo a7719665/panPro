@@ -149,7 +149,7 @@
 import { login,register } from '@/api';
 import globalTool from '@/utils/globalTool';
 const info = ref({
-    usename: '13666997777',
+    usename: '13000000000',
     usepwd: 'aa123456'
 });
 const check = ref(false);

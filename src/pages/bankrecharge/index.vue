@@ -8,8 +8,6 @@
 
         <div class="pz">
             <p>上传凭证（付款成功截图）</p>
-            <!-- <input ref="pingzheng" type="file" accept="image/png, image/jpeg" style="display: none" @change="fileChange"/> -->
-
             <uv-upload :fileList="fileList1" name="6" @afterRead="afterRead" @delete="deletePic" :maxCount="1" width="250" height="150">
                 <img src="@/static/img/jiapz.png" alt="" @click="chooseFile" />
             </uv-upload>
@@ -130,7 +128,7 @@ onMounted(() => {
     background: #f2f2f2;
 }
 .kef {
-    width: 100%;
+    width: 750rpx;
     margin: auto;
     display: block;
 }
@@ -155,7 +153,7 @@ onMounted(() => {
     }
 }
 .pz {
-    width: 90%;
+    width: 680rpx;
     margin: 20rpx auto; /* 0.1rem * 200 */
     display: block;
     p {
@@ -164,7 +162,7 @@ onMounted(() => {
         font-weight: 700;
     }
     img {
-        width: 45%;
+        width: 355rpx;
         margin-top: 20rpx; /* 0.1rem * 200 */
     }
 }

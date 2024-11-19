@@ -201,7 +201,7 @@ onMounted(() => {
         font-weight: 700;
     }
     img {
-        width: 45%;
+        width: 370rpx;
         margin-top: 20rpx; /* 0.1rem * 200 */
     }
 }

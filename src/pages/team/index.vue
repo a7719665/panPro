@@ -215,12 +215,12 @@ onMounted(() => {
     }
     .acting_warp {
         position: relative;
-        top: 100rpx;
+        top: 140rpx;
         width: 90%;
         margin: auto;
         background-color: rgba(0, 0, 0, 0.42);
         line-height: 100rpx;
-        border-radius: 20rpx;
+        border-radius: 20rpx 20rpx 0 0;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -253,10 +253,10 @@ onMounted(() => {
         width: 90%;
         margin: auto;
         background-color: rgba(255, 255, 255, 0.13);
-        border-radius: 10rpx;
+        border-radius: 0;
         .data {
             padding: 20rpx 20rpx;
-            border-bottom: solid #e5e5e5 2rpx;
+            border-bottom: solid #e5e5e5 1rpx;
             p {
                 margin-top: 10rpx;
                 color: #ffffff;

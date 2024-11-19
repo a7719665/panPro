@@ -241,7 +241,7 @@ const ok = () => {
                 justify-content: space-between;
                 margin-top: 30rpx;
                 .uv-upload {
-                    width: 48%;
+                    width: 370rpx;
                     img{
                         margin: 20rpx;
                         width: 294rpx;

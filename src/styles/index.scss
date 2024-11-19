@@ -32,9 +32,12 @@ input:-webkit-autofill {
 div{
     box-sizing: border-box;
 }
-page view {
+page, view, input ,image,img{
     box-sizing: border-box;
     flex-shrink: 0;
+}
+.uv-upload{
+    box-sizing: border-box;    
 }
 body {
     font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma, Arial, PingFang SC-Light, Microsoft YaHei;
