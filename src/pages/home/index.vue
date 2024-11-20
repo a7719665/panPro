@@ -88,7 +88,7 @@ const toPlatform = () => {
 };
 const toMall = () => {
     uni.navigateTo({
-        url: '/pages/mall/index'
+        url: '/pages/integral/index'
     });
 };
 const toCircle = () => {

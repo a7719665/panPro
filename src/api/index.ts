@@ -412,4 +412,70 @@ export function checkimg( input: string) {
     });
 }
 
+
+
+
+export function getHuodong() {
+    return http<any>({
+        method: 'GET',
+        url: `active.php`
+    });
+}
+
+export function getHuodongDetail( id: string) {
+    return http<any>({
+        method: 'GET',
+        url: `active_info.php?id=${id}`
+    });
+}
+
+export function postQiandao() {
+    return http<any>({
+        method: 'POST',
+        url: `jifen_qiandao.php`
+    });
+}
+
+export function postDaihuan() {
+    return http<any>({
+        method: 'POST',
+        url: `jifen_daihuan.php`
+    });
+}
+
+export function postYaoqing() {
+    return http<any>({
+        method: 'POST',
+        url: `jifen_yaoqing.php`
+    });
+}
+
+export function postFuli() {
+    return http<any>({
+        method: 'POST',
+        url: `jifen_fuli.php`
+    });
+}
+
+export function postShop( id: string) {
+    return http<any>({
+        method: 'POST',
+        url: `shop_ing.php&id=${id}`
+    });
+}
+
+export function getShop() {
+    return http<any>({
+        method: 'GET',
+        url: `shop.php`
+    });
+}
+
+export function getHelpcon( id: string) {
+    return http<any>({
+        method: 'POST',
+        url: `kefu_about_info.php&id=${id}`
+    });
+}
+
 // ... existing code ...
