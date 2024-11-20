@@ -1,24 +1,24 @@
 <template>
-    <div class="container">
-        <div class="note_warp">
-            <div class="login_bgg">
+    <view class="container">
+        <view class="note_warp">
+            <view class="login_bgg">
                 <img src="@/static/img/logo1.png" alt="" />
                 <p>鸿运</p>
-            </div>
+            </view>
 
-            <div class="botpanel" v-if="isLogin">
-                <div class="zk">
-                    <div @click="isLogin = true">
+            <view class="botpanel">
+                <view class="zk">
+                    <view>
                         <p class="login_title">登录</p>
                         <span class="login_span"></span>
-                    </div>
-                    <div @click="isLogin = false">
+                    </view>
+                    <view @click="toRegister">
                         <p class="register_title mb-40rpx">注册</p>
                         <span style="background: none"></span>
-                    </div>
-                </div>
-                <uv-form labelPosition="left" :model="info" :rules="rules" ref="form">
-                    <uv-form-item label="" :prop="usename">
+                    </view>
+                </view>
+                <uv-form labelPosition="left" :model="info" ref="form">
+                    <uv-form-item label="" prop="usename">
                         <uv-input
                             color="#000"
                             shape="circle"
@@ -52,117 +52,41 @@
                         <span class="forget_password" @click="toForgetPassword">忘记密码？</span>
                     </view>
                     <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
-                    <div class="login_btn" @click="loginClick">登录</div>
+                    <view class="login_btn" @click="loginClick">登录</view>
                 </uv-form>
-            </div>
-            <div class="botpanel_register" v-else>
-                <div class="zk">
-                    <div @click="isLogin = true">
-                        <p class="register_title mb-40rpx">登录</p>
-                        <span style="background: none"></span>
-                    </div>
-                    <div @click="isLogin = false">
-                        <p class="login_title">注册</p>
-                        <span class="login_span"></span>
-                    </div>
-                </div>
-                <uv-form labelPosition="left" :model="info" :rules="rules" ref="form">
-                    <uv-form-item label="" :prop="info.mobile">
-                        <uv-input
-                            color="#000"
-                            shape="circle"
-                            :customStyle="{
-                                backgroundColor: '#f0f0f0' // 自定义背景色
-                            }"
-                            prefixIcon="account"
-                            v-model="info.mobile"
-                            placeholder="请输入手机号"
-                        >
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="" prop="password">
-                        <uv-input
-                            color="#000"
-                            password
-                            shape="circle"
-                            :customStyle="{
-                                backgroundColor: '#f0f0f0' // 自定义背景色
-                            }"
-                            prefixIcon="lock"
-                            v-model="info.password"
-                            placeholder="请输入图形码"
-                        >
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="" prop="password">
-                        <uv-input
-                            color="#000"
-                            password
-                            shape="circle"
-                            :customStyle="{
-                                backgroundColor: '#f0f0f0' // 自定义背景色
-                            }"
-                            prefixIcon="lock"
-                            v-model="info.password"
-                            placeholder="请输入登录密码"
-                        >
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="" prop="password">
-                        <uv-input
-                            color="#000"
-                            password
-                            shape="circle"
-                            :customStyle="{
-                                backgroundColor: '#f0f0f0' // 自定义背景色
-                            }"
-                            prefixIcon="lock"
-                            v-model="info.password"
-                            placeholder="请确认登录密码"
-                        >
-                        </uv-input>
-                    </uv-form-item>
-                    <uv-form-item label="" prop="password">
-                        <uv-input
-                            color="#000"
-                            password
-                            shape="circle"
-                            :customStyle="{
-                                backgroundColor: '#f0f0f0' // 自定义背景色
-                            }"
-                            prefixIcon="lock"
-                            v-model="info.password"
-                            placeholder="请输入邀请码"
-                        >
-                        </uv-input>
-                    </uv-form-item>
-
-                    <!-- <uv-button type="primary" text="登录" @click="submit"></uv-button> -->
-                    <div class="login_btn">注册</div>
-                </uv-form>
-            </div>
-        </div>
-    </div>
+            </view>
+        </view>
+    </view>
 </template>
 
 <script setup lang="ts">
 import { login,register } from '@/api';
 import globalTool from '@/utils/globalTool';
+
 const info = ref({
-    usename: '13000000000',
-    usepwd: 'aa123456'
+    usename: '',
+    usepwd: ''
 });
-const check = ref(false);
+const code = ref(''); //验证码
+const check = ref(true);
+const show = ref(false);
+const msg = ref('');
+const imgurl = ref('');
 const checkboxValue = ref(['记住密码']);
 //显示登录还是显示注册
 const isLogin = ref(true);
+const toRegister = () => {
+    uni.navigateTo({
+        url: '/pages/login/register'
+    });
+};
 const toForgetPassword = () => {
     uni.navigateTo({
         url: '/pages/login/ForgetPassword'
     });
 };
 const loginClick = () => {
-    login(info.value).then((res: any) => {
+    login(info.value.usename, info.value.usepwd).then((res: any) => {
         console.log(res);
         if (res.result == 'true') {
             globalTool.setStore('token', res.token);

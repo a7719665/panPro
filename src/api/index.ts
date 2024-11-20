@@ -3,10 +3,10 @@ import type { LoginData, SearchRequest } from './types';
 
 
 //登录
-export function login(data: any) {
+export function login(usename: string, usepwd: string) {
     return http<any>({
         method: 'POST',
-        url: `login.php?usename=${data.usename}&usepwd=${data.usepwd}`,
+        url: `login.php?usename=${usename}&usepwd=${usepwd}`,
         // header: {
         //     'Content-Type': 'application/x-www-form-urlencoded'
         // }

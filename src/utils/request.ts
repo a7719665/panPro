@@ -21,10 +21,9 @@ const urlPrefix = '/api/';
 const httpInterceptor = {
     // 拦截前触发
     invoke(options: UniApp.RequestOptions) {
-        // 1. 非 http 开头需拼接地址
-        if (!options.url.startsWith('http')) {
-            options.url = baseURL + proxyKey + urlPrefix + options.url;
-        }
+        const isDev = import.meta.env.MODE === 'development';
+        options.url = baseURL + (isDev ? proxyKey : '') + urlPrefix + options.url;
+
         // 2. 请求超时, 默认 60s
         options.timeout = 15000;
         // 3. 添加小程序端请求头标识
@@ -43,9 +42,11 @@ const httpInterceptor = {
                     options.url += '&token=' + token;
                 }
             } else {
-                options.data ? (options.data as any).token = token : (options.data = {
-                    token: token
-                });
+                options.data
+                    ? ((options.data as any).token = token)
+                    : (options.data = {
+                          token: token
+                      });
             }
             // options.header.Authorization = token;
         }
@@ -126,6 +127,7 @@ export const http = <T>(options: UniApp.RequestOptions) => {
                     icon: 'none',
                     title: '网络错误，换个网络试试'
                 });
+                uni.navigateTo({ url: '/pages/login/index' });
                 reject(err);
             },
             complete() {

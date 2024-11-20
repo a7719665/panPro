@@ -101,7 +101,6 @@ const announcementText = ref('')
 let announcementList = []
 //信用卡知识list
 const creditCardList = ref([])
-const list = ref(['https://cdn.uviewui.com/uview/swiper/swiper1.png', 'https://cdn.uviewui.com/uview/swiper/swiper2.png', 'https://cdn.uviewui.com/uview/swiper/swiper3.png']);
 const slides = ref([]);
 const reqBanner = () => {
     getbanner().then((res) => {
