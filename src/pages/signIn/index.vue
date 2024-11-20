@@ -3,65 +3,74 @@
         <div class="kong"><img src="@/static/img/lblblb.png" alt="" /></div>
         <div class="zc"><p @click="qiandao">立即签到</p></div>
         <div></div>
-      
+        <uv-popup ref="popup" mode="center">
+            <view class="popcontainer">
+                <div class="popheader">问题</div>
+                <div>{{ timu.wenti }}</div>
+                <div class="daan_list">
+                    <p :class="{ active: da == 'A' }" @click="da = 'A'">{{ timu.da1 }}</p>
+                    <p :class="{ active: da == 'B' }" @click="da = 'B'">{{ timu.da2 }}</p>
+                    <p :class="{ active: da == 'C' }" @click="da = 'C'">{{ timu.da3 }}</p>
+                </div>
+                <div slot="footer">
+                    <button class="h-btn" @click="confirm">确定</button>
+                </div>
+            </view>
+        </uv-popup>
     </div>
 </template>
 <script setup lang="ts">
 import { qiandaoDati, qiandaoDatiok, setfollow } from '@/api';
 import { ref, onMounted } from 'vue';
-import { useUserStore } from '@/stores/modules/userStore';
-import { storeToRefs } from 'pinia';
 import globalTool from '@/utils/globalTool';
 
-const userStore = useUserStore();
-const { prefixUrl } = storeToRefs(userStore);
-
-const opened = ref(false);
-const show = ref(false);
-const msg = ref("");
+const popup = ref<any>(null);
 const timu = ref<any>({});
-const da = ref("");
+const da = ref('');
 
 const getData = async () => {
     qiandaoDati().then((res: any) => {
-        timu.value = res.data.dati;
+        timu.value = res.dati;
+        if (!timu.value.id) {
+            popup.value.close();
+        } 
     });
 };
 
 const qiandao = () => {
-    if(!!timu.value.id){
-        opened.value = true;
+    if (!!timu.value.id) {
+        popup.value.open();
     } else {
         globalTool.showToast('今日不能签到');
     }
 };
 
 const confirm = async () => {
-    if(da.value === ''){
-        globalTool.showToast("请选择答案");
+    if (da.value === '') {
+        globalTool.showToast('请选择答案');
         return;
     }
 
-    qiandaoDatiok( da.value, timu.value.id).then((res: any) => {
-        if(res.data.result === 'true'){
-            opened.value = false;
+    qiandaoDatiok(da.value, timu.value.id)
+        .then((res: any) => {
+            popup.value.close();
             da.value = '';
             SingIn();
-        }
-    }).catch((err: any) => {
-        globalTool.showToast(err.message);
-        da.value = '';
-        getData();
-    });
+        })
+        .catch((err: any) => {
+            if (err.data?.msg == '回答错误') {
+                globalTool.showToast(err.data.msg);
+                da.value = '';
+                getData();
+            }
+        });
 };
 
 const SingIn = async () => {
     setfollow().then((res: any) => {
-        globalTool.showToast(res.data.msg);
+        globalTool.showToast(res.msg);
     });
 };
-
-
 
 const withdraw = () => {
     uni.navigateTo({
@@ -111,6 +120,26 @@ onMounted(() => {
             color: #ffffff;
             line-height: 98rpx; // 0.49rem * 200 = 98rpx
         }
+    }
+}
+.popcontainer {
+    width: 600rpx;
+    padding: 20rpx;
+    border-radius: 20rpx;
+    .popheader {
+        font-size: 36rpx;
+        font-weight: bold;
+    }
+    .daan_list p {
+        border: 1px solid #3a79f7;
+        margin: 20rpx 0;
+        line-height: 60rpx;
+        text-align: center;
+        border-radius: 10rpx;
+    }
+    .daan_list .active {
+      background: #3a79f7;
+      color: #fff;
     }
 }
 </style>

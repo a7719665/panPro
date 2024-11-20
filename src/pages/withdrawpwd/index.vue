@@ -4,9 +4,9 @@
         <view class="xuigai"><p>修改支付密码</p></view>
         <view class="topay">
 
-            <input placeholder="请输入原支付密码"  type="text" v-model="usepwd" autocomplete="off"></input>
-            <input placeholder="请输入新支付密码"  type="text" v-model="newpwd" autocomplete="off"></input>
-            <input placeholder="请确定支付密码"  type="text" v-model="okpwd" autocomplete="off"></input>
+            <input placeholder="请输入原支付密码"  type="password" v-model="usepwd" autocomplete="off"></input>
+            <input placeholder="请输入新支付密码"  type="password" v-model="newpwd" autocomplete="off"></input>
+            <input placeholder="请确定支付密码"  type="password" v-model="okpwd" autocomplete="off"></input>
 
           
             <i>密码支持6-14字符，建议数字、字母、符号组合</i>
@@ -35,13 +35,13 @@ const Token = ref("");
 
 const modifyPwd = () => {
     if(newpwd.value === ""){
-        msg.value = "请输入支付密码";
+        globalTool.showToast("请输入旧支付密码");
     } else if(okpwd.value === ""){
-        msg.value = "请输入支付密码";
+        globalTool.showToast("请输入新支付密码");
     } else if(newpwd.value !== okpwd.value){
-        msg.value = "请确保两次密码输入一致";
+        globalTool.showToast("请确保两次密码输入一致");
     } else if(newpwd.value.length < 6 || newpwd.value.length > 16){
-        msg.value = "密码长度为6-16位";
+        globalTool.showToast("密码长度为6-16位");
     } else {
         modipaypwd( newpwd.value, usepwd.value).then(function(res){
             globalTool.showModal('修改成功',()=>{

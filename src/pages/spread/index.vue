@@ -7,8 +7,10 @@
             </div>
 
             <div class="fen">
-                <p><i></i></p>
-                <div data-clipboard-text="" class="invite_btn code-copy-btn">复制分享链接</div>
+                <p>
+                    <i>{{ spreadurl }}</i>
+                </p>
+                <div class="invite_btn code-copy-btn" :data-clipboard-text="spreadurl" @click="copyCode">复制分享链接</div>
             </div>
         </div>
         <div class="vux-toast">
@@ -31,7 +33,9 @@ const spreadurl = ref('');
 const pic = ref('');
 const bianhao = ref('');
 const qrCodeUrl = ref('');
-
+const copyCode = () => {
+    globalTool.copyText(spreadurl.value, '已复制到剪贴板');
+};
 const creatQrCode = () => {
     // 获取uQRCode实例
     var qr = new UQRCode();

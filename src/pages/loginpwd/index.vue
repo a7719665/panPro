@@ -4,9 +4,9 @@
         <img src="@/static/img/wjmm.png" alt="" class="wjmm" style="width: 80%; left: 10%" />
         <div class="xuigai"><p>修改登录密码</p></div>
         <div class="topay">
-            <input type="password" placeholder="请输入原密码" autocomplete="off" />
-            <input type="password" placeholder="请输入新密码" autocomplete="off" />
-            <input type="password" placeholder="请确定新密码" autocomplete="off" />
+            <input type="password" placeholder="请输入原密码" autocomplete="off" v-model="usepwd" />
+            <input type="password" placeholder="请输入新密码" autocomplete="off" v-model="newpwd" />
+            <input type="password" placeholder="请确定新密码" autocomplete="off" v-model="okpwd" />
             <i>密码支持6-14字符，建议数字、字母、符号组合</i>
 
             <div class="ll" @click="modifyPwd"><p >确认</p></div>
@@ -32,13 +32,13 @@ const token = ref("");
 
 const modifyPwd = () => {
     if(usepwd.value === ""){
-        msg.value = "请输入旧密码";
+        globalTool.showToast("请输入旧密码");
     } else if(newpwd.value === ""){
-        msg.value = "请输入新密码";
+        globalTool.showToast("请输入新密码");
     } else if(newpwd.value !== okpwd.value){
-        msg.value = "请确保两次密码输入一致";
+        globalTool.showToast("请确保两次密码输入一致");
     } else if(newpwd.value.length < 6 || newpwd.value.length > 16){
-        msg.value = "密码长度为6-16位";
+        globalTool.showToast("密码长度为6-16位");
     } else {
         modifypwd(usepwd.value, newpwd.value).then((res) => {
             globalTool.showToast("修改成功");

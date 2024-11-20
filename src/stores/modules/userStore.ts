@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
     if(currentDomain.includes('localhost')){
         currentDomain = "";
     }
-
+    const url = location.origin.indexOf('http://localhost')>-1 ? 'https://hongyun.fengsapp.com/' : location.origin + '/';
     const prefixUrl = ref(import.meta.env.VITE_APP_BASE_URL || currentDomain || 'https://my201hongy.zvrxw.com/');// ref('https://my201hongy.zvrxw.com/');
 
     //图片前缀url
@@ -21,10 +21,6 @@ export const useUserStore = defineStore('user', () => {
             provider: 'weixin', //使用微信登录
             success: function (res) {
                 console.log(res);
-                // getWxOpenId({ jsCode: res.code }).then((res: any) => {
-                //     console.log(res);
-                //     wxCode.value = res.data.openid;
-                // });
             },
             fail: function (res) {
                 console.log('err', res);
@@ -60,7 +56,8 @@ export const useUserStore = defineStore('user', () => {
         userId,
         wxCode,
         getOpenID,
-        prefixUrl
+        prefixUrl,
+        url
     };
 });
 

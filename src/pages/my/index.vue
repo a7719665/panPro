@@ -4,8 +4,10 @@
             <view class="content">
                 <img src="@/static/img/logo1.png" alt="" style="height: 140rpx" />
                 <view class="con clearfix">
-                    <p>ID：{{ userInfo.phone }}<a href="https://my201hongy.zvrxw.com//html" target="_blank">下载APP</a></p>
-                    <view @click="certificationClick"><span >{{ authentication }}</span>
+                    <p>ID：{{ userInfo.phone }}
+                        <a :href="url + '/html'" target="_blank">下载APP</a>
+                    </p>
+                    <view @click="certificationClick"> <span>{{ authentication ? '已认证' : '未认证' }}</span>
                     </view>
                 </view>
             </view>
@@ -75,6 +77,8 @@
 <script setup lang="ts">
 import { getuserdetail, getAuthentication, getapistrade } from '@/api';
 import globalTool from '@/utils/globalTool';
+import { useUserStore } from '@/stores/modules/userStore';
+const { url } = useUserStore();
 const certificationClick = () => {
     uni.navigateTo({
         url: '/pages/certification/index'
@@ -122,7 +126,7 @@ const platformClick = () => {
 };
 const userInfo = ref<any>({}); //用户信息
 const tousu = ref('');
-const authentication = ref('');
+const authentication = ref<string | boolean>(false);
 const pay_pwd = ref(0);
 const InitData = () => {
     const that = this;
@@ -191,7 +195,7 @@ const getAuthenticationData = () => {
             authentication.value = res.msg;
         })
         .catch((err: any) => {
-            authentication.value = err.data.msg;
+            authentication.value = false;
         });
 };
 const getTousu = () => {

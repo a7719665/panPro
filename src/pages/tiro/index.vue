@@ -1,39 +1,43 @@
 <template>
     <div class="Order_warp">
-        <div class="vux-header">
-            <div class="vux-header-left">
-                <a class="vux-header-back"></a>
-                <div class="left-arrow"></div>
-            </div>
-            <h1 class="vux-header-title">代付订单</h1>
-            <!---->
-            <div class="vux-header-right"><!----></div>
-        </div>
         <div class="shuju">
             <div class="shuju_content">
                 <img src="@/static/img/xingming.png" alt="" />
-                <p>真实姓名<span></span></p>
+                <p>
+                    真实姓名<span>{{ BankInfo.bankuser }}</span>
+                </p>
             </div>
             <div class="shuju_content">
                 <img src="@/static/img/daihuuanyinhang.png" alt="" />
-                <p>银行名称<span></span></p>
+                <p>
+                    银行名称<span>{{ BankInfo.bankname }}</span>
+                </p>
             </div>
             <div class="shuju_content">
                 <img src="@/static/img/yinhangkahao.png" alt="" />
-                <p>银行卡号<span></span></p>
+                <p>
+                    银行卡号<span>{{ BankInfo.bankcode }}</span>
+                </p>
             </div>
             <div class="shuju_content">
                 <img src="@/static/img/daihuanzonge2.png" alt="" />
-                <p>代还金额<span></span></p>
+                <p>
+                    代还金额<span>{{ BankInfo.moneys }}</span>
+                </p>
             </div>
             <div class="shuju_content">
                 <img src="@/static/img/daihuanlilv.png" alt="" />
-                <p>利率<span>%</span></p>
+                <p>
+                    <p>利率<span>{{ days == BankInfo.days ? BankInfo.shouyi : days == BankInfo.days2 ? BankInfo.shouyi2 : BankInfo.shouyi3 }}%</span></p>
+                </p>
             </div>
             <div class="shuju_content">
                 <img src="@/static/img/daihuanlilv.png" alt="" />
                 <p class="days_choose">
-                    代还天数<span class=""></span>
+                    代还天数
+                    <span :class="{ active: days == BankInfo.days }" @click="days = BankInfo.days">{{ BankInfo.days }}</span>
+                    <span v-if="BankInfo.days2 > 0" :class="{ active: days == BankInfo.days2 }" @click="days = BankInfo.days2">{{ BankInfo.days2 }}</span>
+                    <span v-if="BankInfo.days3 > 0" :class="{ active: days == BankInfo.days3 }" @click="days = BankInfo.days3">{{ BankInfo.days3 }}</span>
                 </p>
             </div>
         </div>
@@ -41,83 +45,57 @@
     </div>
 </template>
 <script setup lang="ts">
-
 import { ref, onMounted } from 'vue';
 import { getOrderInfo, postOrder } from '@/api';
 import globalTool from '@/utils/globalTool';
-
 
 const BankInfo = ref<any>({});
 const jiedaiInfo = ref<any>({});
 const days = ref(30);
 const show = ref(false);
-const msg = ref("");
+const msg = ref('');
 const isClicked = ref(false);
-const moneys = ref('')
-const bianhao = ref('')
+const moneys = ref('');
+const bianhao = ref('');
 const getData = () => {
     getOrderInfo(bianhao.value).then((data: any) => {
-
         BankInfo.value = data;
         days.value = data.days;
         moneys.value = data.moneys;
         jiedaiInfo.value = BankInfo.value.yue_moneys[0];
-    }).catch(err => {
-        uni.navigateBack();
-    })
-
-}
+    });
+};
 
 const ok = () => {
     if (!days.value) {
-        globalTool.showToast("请选择代还天数")
+        globalTool.showToast('请选择代还天数');
         return;
     }
 
-    postOrder(bianhao.value, BankInfo.value.jb === '3' ? jiedaiInfo.value.days : days.value, BankInfo.value.jb === '3' ? jiedaiInfo.value.jiedai : moneys.value, jiedaiInfo.value.rililv).then((res) => {
-        globalTool.showModal(res.msg, () => {
-            uni.navigateBack();
+    postOrder(bianhao.value, BankInfo.value.jb === '3' ? jiedaiInfo.value.days : days.value, BankInfo.value.jb === '3' ? jiedaiInfo.value.jiedai : moneys.value, jiedaiInfo.value.rililv)
+        .then((res) => {
+            globalTool.showModal(res.msg, () => {
+                uni.navigateBack();
+            });
         })
-    }).catch(() => {
-
-    });
-
+        .catch(() => {});
 };
-
 
 onLoad((options: any) => {
     bianhao.value = options.bianhao;
     getData();
 });
-
 </script>
 <style scoped lang="scss">
 .Order_warp {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     overflow: scroll;
-    padding-top: 120rpx;
+    padding-top: 20rpx;
     background: -webkit-gradient(linear, left top, left bottom, from(#24234c), to(#0f0f1c));
     background: linear-gradient(180deg, #24234c 0%, #0f0f1c 100%);
 
-    .vux-header {
-        background: #0f0f1c !important;
-
-        .vux-header-left {
-            .left-arrow:before {
-                border-color: #ffffff !important;
-            }
-        }
-
-        .vux-header-title {
-            height: 90rpx !important;
-            font-size: 28rpx !important;
-            line-height: 90rpx !important;
-            color: #ffffff !important;
-            font-size: 32rpx !important;
-            font-weight: 600 !important;
-        }
-    }
+   
 
     .shuju {
         position: relative;
@@ -209,5 +187,4 @@ onLoad((options: any) => {
         height: 100rpx;
     }
 }
-</style>
 </style>

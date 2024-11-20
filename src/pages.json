@@ -109,6 +109,12 @@
             }
         },
         {
+            "path": "pages/tiro/index",
+            "style": {
+                "navigationBarTitleText": "代付订单"
+            }
+        },
+        {
             "path": "pages/spread/index",
             "style": {
                 "navigationBarTitleText": "邀请好友"
@@ -153,7 +159,7 @@
         {
             "path": "pages/great/index",
             "style": {
-                "navigationBarTitleText": ""
+                "navigationBarTitleText": "余额宝"
             }
         },
         {
