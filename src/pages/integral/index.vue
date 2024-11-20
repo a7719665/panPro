@@ -13,7 +13,7 @@
                 <img :src="prefixUrl + item.shoppic" />
                 <div class="data">
                     <p>${{ item.danjia }}</p>
-                    <span>兑换</span>
+                    <span @click="reqpostShop(item.id)">兑换</span>
                 </div>
             </div>
             
@@ -90,7 +90,7 @@ onMounted(() => {
 .integral_warp {
     background: -webkit-gradient(linear, left top, left bottom, from(#24234c), to(#0f0f1c));
     background: linear-gradient(180deg, #24234c 0%, #0f0f1c 100%);
-    min-height: 100%;
+    min-height: 100vh;
     position: relative;
     padding-bottom: 60rpx;
     .integral {

@@ -460,7 +460,7 @@ export function postFuli() {
 export function postShop( id: string) {
     return http<any>({
         method: 'POST',
-        url: `shop_ing.php&id=${id}`
+        url: `shop_ing.php?id=${id}`
     });
 }
 
@@ -474,7 +474,7 @@ export function getShop() {
 export function getHelpcon( id: string) {
     return http<any>({
         method: 'POST',
-        url: `kefu_about_info.php&id=${id}`
+        url: `kefu_about_info.php?id=${id}`
     });
 }
 
