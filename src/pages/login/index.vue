@@ -45,7 +45,7 @@
                         >
                         </uv-input>
                     </uv-form-item>
-                    <view class="flex justify-between color-#666">
+                    <view class="flex justify-between color-#fff">
                         <uv-checkbox-group v-model="checkboxValue" shape="circle">
                             <uv-checkbox v-model="check" :customStyle="{ marginBottom: '8px' }" name="记住密码">记住密码</uv-checkbox>
                         </uv-checkbox-group>
@@ -60,7 +60,8 @@
 </template>
 
 <script setup lang="ts">
-import { login,register } from '@/api';
+import { ref } from 'vue';
+import { login } from '@/api';
 import globalTool from '@/utils/globalTool';
 
 const info = ref({
@@ -86,7 +87,14 @@ const toForgetPassword = () => {
     });
 };
 const loginClick = () => {
-    login(info.value.usename, info.value.usepwd).then((res: any) => {
+    if (!info.value.usename) {
+        globalTool.showToast('请输入手机号');
+    } else if (info.value.usename.length != 11) {
+        globalTool.showToast('请填写正确的电话号码！');
+    } else if (!info.value.usepwd) {
+        globalTool.showToast('请输入密码');
+    } else {
+        login(info.value.usename, info.value.usepwd).then((res: any) => {
         console.log(res);
         if (res.result == 'true') {
             globalTool.setStore('token', res.token);
@@ -99,8 +107,9 @@ const loginClick = () => {
             uni.switchTab({
                 url: '/pages/home/index'
             });
-        }
-    });
+            }
+        });
+    }
 };
 
 </script>
@@ -140,6 +149,9 @@ const loginClick = () => {
     // margin: 300rpx 0 100rpx;
     height: 686rpx;
     padding: 40rpx;
+    :deep .uv-checkbox__label-wrap {
+        color: #666;
+    }
 }
 .zk {
     display: flex;
