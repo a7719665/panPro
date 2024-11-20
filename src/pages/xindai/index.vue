@@ -9,8 +9,8 @@
                     <view class="dhtupian"><img :src="prefixUrl + item.pic" alt="" /></view>
                     <view class="return_but">
                         <p>{{ item.con }}</p>
-                        <span>{{ item.iskai }}</span>
-                        <!---->
+                        <span>{{ "开放"==item.iskai?"开放中":item.iskai }}</span>
+                        <i v-if="'开放'==item.iskai"  @click="toTiro(item.bianhao)">立即代还</i>
                     </view>
                 </view>
             </view>
@@ -24,7 +24,12 @@ import { storeToRefs } from 'pinia';
 const userStore = useUserStore();
 const { prefixUrl } = storeToRefs(userStore);
 const list = ref<any[]>([]);
-onMounted(() => {
+const toTiro = (bianhao:number)=>{
+    uni.navigateTo({
+        url: `/pages/tiro/index?bianhao=${bianhao}`
+    })
+}
+onShow(() => {
     getXindai().then((res:any) => {
         list.value = res.daihuan;
     });
@@ -96,6 +101,16 @@ onMounted(() => {
         color: #fff;
         display: block;
         padding: 10rpx 0 20rpx; /* 0.05rem * 200 */
+    }
+    i {
+        background: radial-gradient(75.86% 100%, #7582fc 0, #f355ff 100%);
+        border-radius: 1000rpx;
+        width: 180rpx;
+        line-height: 70rpx;
+        color: #fff;
+        text-align: center;
+        font-style: normal;
+        display: block;
     }
 }
 </style>

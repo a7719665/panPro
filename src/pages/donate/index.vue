@@ -40,7 +40,7 @@
 import { getStrade } from '@/api';
 
 const list = ref<any[]>([]);
-onMounted(() => {
+onShow(() => {
     getStrade().then((res: any) => {
         // bankcode: "623225 **** 400",
         // bankname: "招商银行",

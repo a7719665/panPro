@@ -148,7 +148,7 @@ const ok = () => {
                 globalTool.showToast("实名认证成功");
             window.location.href = "/pages/home/my";
         }).catch(() => {
-            globalTool.showToast("实名认证失败");
+            
         });
     }
 }

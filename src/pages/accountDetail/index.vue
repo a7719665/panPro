@@ -2,13 +2,13 @@
     <view class="container">
         <div class="account_warp">
             <div class="account_content">
-                <div class="account_btn" :class="{ common_btn: type == 'zj' }" @click="type = 'zj'">资金明细<span></span></div>
-                <div class="account_btn" :class="{ common_btn: type == 'hd' }" @click="type = 'hd'">活动明细<span></span></div>
-                <div class="account_btn" :class="{ common_btn: type == 'jf' }" @click="type = 'jf'">积分明细<span></span></div>
+                <div class="account_btn" :class="{ common_btn: type == 'zj' }" @click="zjClick">资金明细<span></span></div>
+                <div class="account_btn" :class="{ common_btn: type == 'hd' }" @click="hdClick">活动明细<span></span></div>
+                <div class="account_btn" :class="{ common_btn: type == 'jf' }" @click="jfClick">积分明细<span></span></div>
             </div>
             <div class="account">
                 <div class="led">
-                    <template v-show="type == 'zj'">
+                    <template v-if="type == 'zj'">
                         <div class="Activity_warp" v-for="(item, index) in wallet1" :key="index">
                             <div class="Activity_w"><img src="@/static/img/hbao.png" alt="" /></div>
                             <div class="Activity_a">
@@ -20,7 +20,7 @@
                         
                     </template>
 
-                    <template v-show="type == 'hd'">
+                    <template v-if="type == 'hd'">
                         <div class="Activity_warp" v-for="(item, index) in wallet2" :key="index">
                             <div class="Activity_w"><img src="@/static/img/hbao.png" alt="" /></div>
                             <div class="Activity_a">
@@ -33,7 +33,7 @@
                     <view v-if="type == 'hd' && wallet2.length == 0 || type == 'zj' && wallet1.length == 0 || type == 'jf' && wallet3.length == 0">
                         <div class="no_data">暂无数据</div>
                     </view>
-                    <template v-show="type == 'jf'">
+                    <template v-if="type == 'jf'">
                         <div class="Activity_warp" v-for="(item, index) in wallet3" :key="index">
                             <div class="Activity_w"><img src="@/static/img/hbao.png" alt="" /></div>
                             <div class="Activity_a">
@@ -56,6 +56,24 @@ import { ref, onMounted } from 'vue';
 const wallet1 = ref<any>([]);
 const wallet2 = ref<any>([]);
 const wallet3 = ref<any>([]);
+const zjClick = () => {
+    type.value = 'zj';
+    if(wallet1.value.length == 0){
+        GetSzData();
+    }
+};
+const hdClick = () => {
+    type.value = 'hd';
+    if(wallet2.value.length == 0){
+        getHdData();
+    }
+};
+const jfClick = () => {
+    type.value = 'jf';
+    if(wallet3.value.length == 0){
+        getJfData();
+    }
+};
 //资金
 // {
 //     "lx": "支出",
@@ -94,8 +112,8 @@ const title = ref('充值明细');
 
 onMounted(() => {
     GetSzData();
-    getHdData();
-    getJfData();
+    // getHdData();
+    // getJfData();
 });
 
 const GetSzData = async () => {

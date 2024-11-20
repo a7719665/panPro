@@ -213,7 +213,7 @@ const Logout = () => {
         });
     });
 };
-onMounted(() => {
+onShow(() => {
     InitData();
     getTousu();
     getAuthenticationData();
