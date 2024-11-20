@@ -1,6 +1,6 @@
 <template>
     <view class="container">
-        <img src="@/static/img/lclclc.png" alt="" class="licai" />
+        <!-- <img src="@/static/img/lclclc.png" alt="" class="licai" /> -->
         <view class="alance_conternt">
             <view class="zichang_cen">
                 <p>总资产(元)</p>
@@ -32,11 +32,12 @@
                     </view>
                 </view>
             </view>
-            <view class="serve_warp">
+            
+        </view>
+        <view class="serve_warp">
                 <p>请选择理财产品</p>
                 <span></span>
             </view>
-        </view>
         <view class="income_wao">
             <view class="income_warp" :class="selectIndex == index ? 'active' : ''" @click="activeClick(index)"
                 v-for="(item, index) in datalists" :key="index">
@@ -156,6 +157,7 @@ onMounted(() => {
     width: 100vw;
     min-height: 100vh;
     background: linear-gradient(180deg, #24234c, #0f0f1c);
+    position: relative;
 }
 
 .licai {
@@ -170,10 +172,10 @@ onMounted(() => {
 }
 
 .alance_conternt {
+    background-image: url("@/static/img/lclclc.png");
+    background-size:750rpx 570rpx;
     position: relative;
-    z-index: 1;
-    top: 140rpx;
-    /* 0.7rem x 200 = 140rpx */
+    padding-top: 50rpx;
     width: 94%;
     margin: 0 auto;
     border-radius: 20rpx;
@@ -208,6 +210,10 @@ onMounted(() => {
                 font-weight: 700;
             }
         }
+        span {
+            color: #000;
+            font-size: 56rpx;
+        }
     }
 
     .enterMoney {
@@ -241,7 +247,7 @@ onMounted(() => {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
-    margin: 30rpx 10rpx;
+    margin: 20rpx 10rpx;
     /* 0.15rem x 200 = 30rpx, 0.05rem x 200 = 10rpx */
     line-height: 80rpx;
     /* 0.4rem x 200 = 80rpx */
@@ -282,7 +288,7 @@ onMounted(() => {
 }
 
 .income_wao {
-    margin-top: 160rpx;
+    margin-top: 20rpx;
 }
 
 .active {
