@@ -43,6 +43,11 @@
                         autocomplete="off"
                     >
                     </uv-input>
+                    <!-- <VerificationCode @getCode="getIdentifyCode" @update:changeCode="getIdentifyCode" /> -->
+                    <!-- <uni-captcha scene="场景值" v-model="info.code"></uni-captcha> -->
+                    <view class="code-img-wrapper bg-white ml-20rpx" @click="updateImageCode">
+                        <canvas style="width: 180rpx; height: 66rpx" canvas-id="canvas"></canvas>
+                    </view>
                 </uv-form-item>
                 <!-- 密码 -->
                 <uv-form-item label="" prop="password">
@@ -74,7 +79,7 @@
                     ></uv-input>
                 </uv-form-item>
                 <!-- 邀请码 -->
-                <uv-form-item label="" prop="childrenCode">
+                <uv-form-item label="" prop="tjm">
                     <uv-input
                         color="#000"
                         shape="circle"
@@ -82,23 +87,18 @@
                         :customStyle="{
                             backgroundColor: '#f0f0f0' // 自定义背景色
                         }"
-                        v-model="info.childrenCode"
+                        v-model="info.tjm"
                     ></uv-input>
                 </uv-form-item>
             </uv-form>
-            <div class="zc">注册</div>
-        </div>
-        <div class="vux-toast">
-            <div class="weui-mask_transparent" style="display: none"></div>
-            <div class="weui-toast weui-toast_text vux-toast-middle" style="width: 200px; display: none">
-                <i class="weui-icon-success-no-circle weui-icon_toast" style="display: none"></i>
-                <p class="weui-toast__content"></p>
-            </div>
+            <div class="zc" @click="register">注册</div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { Mcaptcha } from '@/utils/mcaptcha';
+
+import VerificationCode from '@/components/VerificationCode.vue';
 import { getpassword, userregister } from '@/api';
 import globalTool from '@/utils/globalTool';
 const info = ref({
@@ -117,6 +117,7 @@ const isLogining = ref(false); //登录按钮是否已点击
 const isLoading = ref(false);
 const identifyCode = ref('');
 const childrenCode = ref('');
+var mcaptcha = ref<any>(null);
 
 const toLogin = () => {
     uni.navigateTo({
@@ -167,23 +168,23 @@ const timerun = () => {
 
 const register = () => {
     if (info.value.username === '') {
-        sendMsg('请输入手机号');
+        globalTool.showToast('请输入手机号');
     } else if (info.value.username.length !== 11) {
-        sendMsg('请填写正确的电话号码！');
+        globalTool.showToast('请填写正确的电话号码！');
     } else if (info.value.password === '') {
-        sendMsg('请输入密码');
+        globalTool.showToast('请输入密码');
     } else if (info.value.password !== info.value.password2) {
-        sendMsg('请确保两次密码输入一致');
+        globalTool.showToast('请确保两次密码输入一致');
     } else if (info.value.code === '') {
-        sendMsg('请输入验证码');
-    } else if (info.value.code === '' || info.value.code.toUpperCase() !== childrenCode.value) {
-        sendMsg('请输入正确的验证码');
+        globalTool.showToast('请输入验证码');
+    } else if (info.value.code === '' || !mcaptcha.value?.validate(info.value.code)) {
+        globalTool.showToast('请输入正确的验证码');
     } else if (info.value.tjm === '') {
-        sendMsg('请输入推荐码');
+        globalTool.showToast('请输入推荐码');
     } else if (info.value.choice === '0') {
-        sendMsg('请阅读并同意服务条款');
+        globalTool.showToast('请阅读并同意服务条款');
     } else if (info.value.password.length < 6 || info.value.password.length > 16) {
-        sendMsg('密码长度为6-16位');
+        globalTool.showToast('密码长度为6-16位');
     } else {
         const params = {
             Mobile: info.value.username,
@@ -199,9 +200,6 @@ const register = () => {
                     });
                 });
             })
-            .catch(() => {
-                globalTool.showToast('注册失败');
-            });
     }
 };
 
@@ -214,8 +212,19 @@ onLoad((options: any) => {
     console.log(options);
 });
 
+// 刷新验证码
+const updateImageCode = () => {
+    mcaptcha.value?.refresh();
+};
+
 onMounted(() => {
     console.log(info.value);
+    mcaptcha.value = new Mcaptcha({
+        el: 'canvas',
+        width: 80,
+        height: 35,
+        createCodeImg: ''
+    });
 });
 </script>
 <style lang="scss" scoped>
